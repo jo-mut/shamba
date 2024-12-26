@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Script from "next/script";
+import AppProviders from "./app-providers";
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,11 +25,12 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        {children}
+          <AppProviders children></AppProviders>
         <Script src="/js/bootstrap.bundle.min.js" strategy="lazyOnload" />
         <Script src="/js/smooth-scrollbar.js" strategy="lazyOnload" />
         <Script src="/js/splide.min.js" strategy="lazyOnload" />

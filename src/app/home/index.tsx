@@ -1,7 +1,13 @@
 import React from "react";
+import { Footer, Header } from "../../components/views/main";
 
-const index = () => {
-  return <div>index</div>;
+const Home = () => {
+  return (
+    <div>
+      <Header></Header>
+      <Footer></Footer>
+    </div>
+  )
 };
 
-export default index;
+export default Home;
