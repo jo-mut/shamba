@@ -1,11 +1,13 @@
+"use client"
 import React from "react";
 import { Footer, Header } from "../../components/views/main";
 
 const Home = () => {
+  console.log("home is called")
+  
   return (
     <div>
-      <Header></Header>
-      <Footer></Footer>
+      "Home works fine"
     </div>
   )
 };

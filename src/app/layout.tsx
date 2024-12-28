@@ -30,7 +30,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-          <AppProviders children></AppProviders>
+          <AppProviders children={children}></AppProviders>
         <Script src="/js/bootstrap.bundle.min.js" strategy="lazyOnload" />
         <Script src="/js/smooth-scrollbar.js" strategy="lazyOnload" />
         <Script src="/js/splide.min.js" strategy="lazyOnload" />

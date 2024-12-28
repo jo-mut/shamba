@@ -4,6 +4,7 @@ import { tokenContract, ERC20, toEth, tokenIcoContract, stakingContract } from "
 
 
 const STAKING_DAPP_ADDRESS = process.env.NEXT_PUBLIC_STAKING_DAPP;
+const INITIAL_OWNER  = process.env.NEXT_PUBLIC_ADMIN_ADDRESS;
 // TOKEN
 const DEPOSIT_TOKEN = process.env.NEXT_PUBLIC_DEPOSIT_TOKEN;
 const REWARD_TOKEN = process.env.NEXT_PUBLIC_REWARD_TOKEN;
@@ -40,8 +41,7 @@ function parseErrorMsg(e) {
 
 
 export const shortenAddress = (address) => {
-    const address = `${address?.slice(0, 8)}...${address?.slice(address.length - 4)}`;
-    return address
+     return `${address?.slice(0, 8)}...${address?.slice(address.length - 4)}`;
 }
 
 export const copyAddress = (test) => {
@@ -49,10 +49,14 @@ export const copyAddress = (test) => {
     notifySuccess("Copied successfully");
 }
 
+const contractObject = async () => {
+    const object = await stakingContract(DEPOSIT_TOKEN, INITIAL_OWNER);
+    return object;
+}
+
 export async function contractData(address) {
     try {
-        const contractObj = await stakingContract();
-        const stakingTokenObject = await tokenContract();
+        const contractObj = await contractObject()
 
         if (address) {
             const contractOwner = await contractObj.owner();
@@ -82,11 +86,14 @@ export async function contractData(address) {
                 const tokenPoolInfoA = await ERC20(poolInfo.depositedToken, address);
                 const tokenPoolInfoB = await ERC20(poolInfo.rewardToken, address);
 
+                console.log("pool info", poolInfo)
+
+
                 const pool = {
                     depositTokenAddress: poolInfo.depositedToken,
-                    rewardTokenAddress: poolInfo.rewardTokenAddress,
+                    rewardTokenAddress: poolInfo.rewardToken,
                     depositedToken: tokenPoolInfoA,
-                    rewardTokenAddress: tokenPoolInfoB,
+                    rewardToken: tokenPoolInfoB,
                     depositedAmount: toEth(poolInfo.depositedAmount.toString()),
                     apy: poolInfo.apy.toString(),
                     lockDays: toEth(userInfo.amount.toString()),
@@ -99,11 +106,13 @@ export async function contractData(address) {
 
             }
 
+
             const totalDepositAmout = poolInfoArray.reduce((total, pool) => {
                 return total + parseFloat(pool.depositedAmount);
-            })
+            }, 0)
 
-            const rewardToken = await ERC20(rewardToken, address);
+
+            const rewardToken = await ERC20(DEPOSIT_TOKEN, address);
             const depositedToken = await ERC20(DEPOSIT_TOKEN, address);
 
             const data = {
@@ -131,20 +140,20 @@ export async function contractData(address) {
 export async function deposit(poolID, amount, address) {
     try {
         notifySuccess("Calling contract...");
-        const contractObject = await stakingContract();
+        const contractObj = await contractObject();
         const stakingTokenObject = await tokenContract();
 
         const amountInWei = ethers.utils.parseUnits(amount.toString(), 18);
 
         const currentAllowance = await stakingTokenObject.allowance(
             address,
-            contractObject.address
+            contractObj.address
         );
 
         if (currentAllowance.lt(amountInWei)) {
             notifySuccess("Approving token...");
             const approveTx = await stakingTokenObject.approve(
-                contractObject.address,
+                contractObj.address,
                 amountInWei
             );
 
@@ -152,13 +161,13 @@ export async function deposit(poolID, amount, address) {
             console.log(`Approved ${amountInWei.toString()} tokens for staking`);
         }
 
-        const gasEstimation = await contractObject.estimateGas.deposit(
+        const gasEstimation = await contractObj.estimateGas.deposit(
             Number(poolID),
             amountInWei
         );
 
         notifySuccess("Staking token call ...");
-        const stakeTx = await contractObject.deposit(poolID, amountInWei, {
+        const stakeTx = await contractObj.deposit(poolID, amountInWei, {
             gasLimit: gasEstimation,
         })
 
@@ -200,16 +209,17 @@ export async function transferToken(amount, transferAddress) {
 export async function withdraw(poolID, amount) {
     try {
         notifySuccess("Calling contract...")
-        const stakingContractObject = await stakingContract();
+        const contractObj = await contractObject();
+
 
         const amountInWei = ethers.utils.parseEther(amount.toString());
 
-        const gasEstimation = await stakingContractObject.estimateGas.withdraw(
+        const gasEstimation = await contractObj.estimateGas.withdraw(
             Number(poolID),
             amountInWei
         );
 
-        const data = await stakingContractObject.withdraw(Number(poolID, amountInWei, {
+        const data = await contractObj.withdraw(Number(poolID, amountInWei, {
             gasLimit: gasEstimation,
         }));
 
@@ -226,13 +236,14 @@ export async function withdraw(poolID, amount) {
 export async function claimReward(poolID) {
     try {
         notifySuccess("Calling contract...")
-        const stakingContractObject = await stakingContract();
+        const contractObj = await contractObject();
 
-        const gasEstimation = await stakingContractObject.estimateGas.claimReward(
+
+        const gasEstimation = await contractObj.estimateGas.claimReward(
             Number(poolID),
         );
 
-        const data = await stakingContractObject.claimReward(Number(poolID, {
+        const data = await contractObj.claimReward(Number(poolID, {
             gasLimit: gasEstimation,
         }));
 
@@ -247,24 +258,28 @@ export async function claimReward(poolID) {
 }
 
 export async function createPool(pool) {
+
     try {
-        const { _depositToken, _rewardToken, _apy, _lockDays } = pool;
-        if (!_depositToken || !_rewardToken || !_apy || _lockDays) return notifyError(
-            "Provide all the details",
+
+        const { _depositedToken, _rewardToken, _apy, _lockDays } = pool;
+        if (!_depositedToken || !_rewardToken || !_apy || !_lockDays) return notifyError(
         )
         notifySuccess("Calling contract...");
 
-        const contractObject = await stakingContract();
+        const contractObj = await contractObject();
 
-        const gasEstimation = await contractObject.estimateGas.addPool(
-            _depositToken,
+        console.log("create pool receipt 1", contractObj);
+
+
+        const gasEstimation = await contractObj.estimateGas.addPool(
+            _depositedToken,
             _rewardToken,
             Number(_apy),
             Number(_lockDays)
         );
 
-        const stakeTx = await contractObject.addPool(
-            _depositToken,
+        const stakeTx = await contractObj.addPool(
+            _depositedToken,
             _rewardToken,
             Number(_apy),
             Number(_lockDays), {
@@ -272,6 +287,7 @@ export async function createPool(pool) {
         })
 
         const receipt = await stakeTx.wait();
+
         notifySuccess("Pool created successful");
         return receipt;
 
@@ -282,22 +298,22 @@ export async function createPool(pool) {
     }
 }
 
-export async function createPool(poolID, amount) {
+export async function modifyPool(poolID, amount) {
     try {
-        const { _depositToken, _rewardToken, _apy, _lockDays } = pool;
-        if (!_depositToken || !_rewardToken || !_apy || _lockDays) return notifyError(
+        const { _depositedToken, _rewardToken, _apy, _lockDays } = pool;
+        if (!_depositedToken || !_rewardToken || !_apy || _lockDays) return notifyError(
             "Provide all the details",
         )
         notifySuccess("Calling contract...");
 
-        const contractObject = await stakingContract();
+        const contractObj = await contractObject();
 
-        const gasEstimation = await contractObject.estimateGas.modifyPool(
+        const gasEstimation = await contractObj.estimateGas.modifyPool(
             Number(amount),
             Number(poolID)
         );
 
-        const stakeTx = await contractObject.addPool(
+        const stakeTx = await contractObj.addPool(
             Number(amount),
             Number(poolID), {
             gasLimit: gasEstimation,
@@ -321,7 +337,7 @@ export async function sweep(tokenData) {
         if (!token || !amount) return notifyError("Data is missing");
 
         notifySuccess("Calling contract...")
-        const contractObject = await stakingContract();
+        const contractObject = await contractObject();
 
         const transferAmount = ethers.utils.parseEther(amount.toString());
 
@@ -445,7 +461,7 @@ export const updateToken = async (_address) => {
         if (!_address) return notifyError("Data is missing");
         const contract = await tokenIcoContract();
 
-        const gasEstimation = await contractObject.estimateGas.updateToken(_address);
+        const gasEstimation = await contractObject().estimateGas.updateToken(_address);
 
         const transaction = await contract.updateToken(_address, {
             gasLimit: gasEstimation,
@@ -469,7 +485,7 @@ export const updateTokenPrice = async (price) => {
 
         const payAmount = ethers.utils.parseUnits(price.toString(), "ether");
 
-        const gasEstimation = await contractObject.estimateGas.updateTokenSalePrice(payAmount);
+        const gasEstimation = await contractObject().estimateGas.updateTokenSalePrice(payAmount);
 
         const transaction = await contract.updateTokenSalePrice(payAmount, {
             gasLimit: gasEstimation,

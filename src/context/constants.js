@@ -48,14 +48,14 @@ export const stakingContract = async (stakingToken, initialOwner) => {
     }
 }
 
-export const ERC20 = async (isAddress, userAddress) => {
+export const ERC20 = async (address, userAddress) => {
     const provider = new ethers.providers.Web3Provider(window.ethereum)
     const { ethereum } = window;
 
     if (ethereum) {
         const signer = provider.getSigner();
         const contractReader = new ethers.Contract(
-            STAKING_DAPP_ADDRESS,
+            address,
             CustomTokenABI.abi,
             signer
         )
@@ -63,7 +63,7 @@ export const ERC20 = async (isAddress, userAddress) => {
         const token = {
             name: await contractReader.name(),
             symbol: await contractReader.symbol(),
-            address: await contractReader.address(),
+            address: await contractReader.address,
             totalSupply: toEth(await contractReader.totalSupply()),
             balance: toEth(await contractReader.balanceOf(userAddress)),
             contractTokenBalance: toEth(await contractReader.balanceOf(STAKING_DAPP_ADDRESS))
@@ -142,7 +142,7 @@ export const tokenIcoER20 = async (isAddress, userAddress) => {
                 symbol: await contractReader.symbol(),
                 decimals: await contractReader.decimals(),
                 supply: toEth(await contractReader.totalSupply()),
-                balance: toEth(await contractReader.balanceOf(balance)),
+                balance: toEth(await contractReader.balanceOf(userAddress)),
                 nativeBalance: toEth(nativeBalance.toString())
             }
 

@@ -1,8 +1,9 @@
+"use client"
 import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="font-sans tracking-wide bg-[#213343] pt-12 pb-4 px-10">
+    <footer className="font-sans tracking-wide pt-12 pb-4 px-10">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-screen-xl mx-auto">
         <div>
           <h4 className="text-[#FFA726] font-semibold text-lg mb-6">Features</h4>
@@ -14,7 +15,7 @@ const Footer = () => {
               <a href="javascript:void(0)" className="hover:text-[#FFA726] text-gray-300 text-[15px] transition-all">Token</a>
             </li>
             <li>
-              <a href="javascript:void(0)" className="hover:text-[#FFA726] text-gray-300 text-[15px] transition-all">Saf</a>
+              <a href="javascript:void(0)" className="hover:text-[#FFA726] text-gray-300 text-[15px] transition-all">Safety</a>
             </li>
             <li>
               <a href="javascript:void(0)" className="hover:text-[#FFA726] text-gray-300 text-[15px] transition-all">Contests</a>
@@ -26,7 +27,7 @@ const Footer = () => {
           <h4 className="text-[#FFA726] font-semibold text-lg mb-6">Services</h4>
           <ul className="space-y-5">
             <li>
-              <a href="javascript:void(0)" className="hover:text-[#FFA726] text-gray-300 text-[15px] transition-all">Safety</a>
+              <a href="javascript:void(0)" className="hover:text-[#FFA726] text-gray-300 text-[15px] transition-all">Affiliate</a>
             </li>
             <li>
               <a href="javascript:void(0)" className="hover:text-[#FFA726] text-gray-300 text-[15px] transition-all">Automatization</a>
@@ -79,7 +80,7 @@ const Footer = () => {
 
       <div className="border-t text-center border-[#6b5f5f] pt-4 mt-8">
         <p className="text-gray-300 text-[15px]">
-          © ReadymadeUI. All rights reserved.
+          © Shamba 2024.
         </p>
       </div>
     </footer>

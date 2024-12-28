@@ -81,17 +81,15 @@ export default function AppProviders(
 
 
     return (
-        <div>
-            <WagmiConfig client={wagmiClient}>
-                <RainbowKitProvider chains={chains} theme={theme}>
-                    <Header></Header>
-                    <div className="min-h-[100vh]">
-                        {children as any}
-                    </div>
-                    <Footer></Footer>
-                    <Toaster />
-                </RainbowKitProvider>
-            </WagmiConfig>
-        </div>
+        <WagmiConfig client={wagmiClient}>
+            <RainbowKitProvider chains={chains} theme={theme}>
+                <Header></Header>
+                <div className="min-h-[100vh]">
+                    {children}
+                </div>
+                <Footer></Footer>
+                <Toaster />
+            </RainbowKitProvider>
+        </WagmiConfig>
     );
 }

@@ -1,3 +1,4 @@
+"use client"
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import React, { useState } from "react";
 

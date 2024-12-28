@@ -1,6 +1,8 @@
 import React from "react";
 
-const ICOToken = () => {
+const ICOToken = ({
+  setLoader
+}) => {
   return <div>ICOToken</div>;
 };
 

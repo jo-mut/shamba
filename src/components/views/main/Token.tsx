@@ -1,6 +1,8 @@
 import React from "react";
 
-const Token = () => {
+const Token = ({
+  token
+}) => {
   return <div>Token</div>;
 };
 

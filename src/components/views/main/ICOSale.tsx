@@ -1,6 +1,8 @@
 import React from "react";
 
-const ICOSale = () => {
+const ICOSale = ({
+  setLoader
+}: any) => {
   return <div>ICOSale</div>;
 };
 

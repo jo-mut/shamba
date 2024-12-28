@@ -1,6 +1,10 @@
 import React from "react";
 
-const Staking = () => {
+const Staking = ({
+  sweep,
+  setLoader,
+  poolDetails
+}) => {
   return <div>Staking</div>;
 };
 

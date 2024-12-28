@@ -15,7 +15,6 @@ contract StakingDapp is Ownable, ReentrancyGuard {
         stakingToken = _stakingToken;
     }
 
-
     struct UserInfo {
         uint256 amount;
         uint lastRewardAt;
