@@ -48,12 +48,12 @@ export default function Page() {
         sweep={sweep}
         poolDetails={poolDetails}
         setModifyPoolID={setModifyPoolId} />
+      <ICOSale setLoader={setLoader} />
       <UpdateAPYModel
         setLoader={setLoader}
         modifyPool={modifyPool}
         modifyPoolId={modifyPoolID}
         poolDetails={poolDetails} />
-      <ICOSale setLoader={setLoader} />
       {!checkAdmin && <Auth />}
       {loader && <Loader />}
     </div>

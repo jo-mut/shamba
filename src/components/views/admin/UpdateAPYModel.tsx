@@ -29,38 +29,42 @@ const UpdateAPYModel = ({
       aria-labelledby="modal-apool"
       aria-hidden="true">
       <div className="modal-dialog modal-dialog-centered">
-        <div className="modal__content">
-          <button className="modal__close" aria-label="close" type="button" data-bs-dismiss="modal">
-            <i className="ti ti-x">
-              <IoMdClose />
-            </i>
-          </button>
-          <h4 className="modal__title">Invest</h4>
-          <p className="modal__text">
-            Update staking pool #00-{modifyPoolId} APY%
-          </p>
-          <div className="modal__form">
-            <label htmlFor="amount2" className="form__label">
-              Enter Amount
-            </label>
-            <input
-              id="amount2"
-              name="amount2"
-              className="apool__input"
-              style={{
-                backgroundColor: "transparent",
-              }}
-              placeholder="amount in %"
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)} />
-            <button
-              type="button"
-              className="form__btn"
-              onClick={() => {
-                handleModifyPool(modifyPoolId, amount)
-              }}>
-              Update APY
-            </button>
+        <div className="modal--auto">
+          <div className="modal-content">
+            <div className="modal__content">
+              <button className="modal__close" aria-label="close" type="button" data-bs-dismiss="modal">
+                <i className="ti ti-x">
+                  <IoMdClose />
+                </i>
+              </button>
+              <h4 className="modal__title">Invest</h4>
+              <p className="modal__text">
+                Update staking pool #00-{modifyPoolId} APY%
+              </p>
+              <div className="modal__form">
+                <label htmlFor="amount2" className="form__label">
+                  Enter Amount
+                </label>
+                <input
+                  id="amount2"
+                  name="amount2"
+                  className="apool__input"
+                  style={{
+                    backgroundColor: "transparent",
+                  }}
+                  placeholder="amount in %"
+                  value={amount}
+                  onChange={(e) => setAmount(e.target.value)} />
+                <button
+                  type="button"
+                  className="form__btn"
+                  onClick={() => {
+                    handleModifyPool(modifyPoolId, amount)
+                  }}>
+                  Update APY
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
