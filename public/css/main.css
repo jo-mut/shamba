@@ -4878,6 +4878,7 @@ body::-webkit-scrollbar-thumb {
 
 .modal-backdrop {
   background: #062d48;
+  z-index: -1;
 }
 
 /*==============================
