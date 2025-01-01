@@ -153,9 +153,8 @@ const Pool: React.FC<PoolProps> = ({
                               </td>
                               <td className="deals__text deals__text--sell">
                                 <a
-                                  href=""
                                   className="header__profile"
-                                  data-bs-target="modal-apool"
+                                  data-bs-target="#modal-apool"
                                   type="button"
                                   data-bs-toggle="modal"
                                   onClick={() => setModifyPoolID(index)}>

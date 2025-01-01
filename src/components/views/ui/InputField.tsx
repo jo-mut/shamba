@@ -5,12 +5,12 @@ import React from "react";
 interface InputFieldProps{
   size: string,
   type: string,
-  title: string,
+  title?: string,
   name: string,
   value?: string,
   disabled?: boolean,
-  placeholder: string,
-  handleChange: (e: any) => void
+  placeholder?: string,
+  handleChange?: (e: any) => void
 }
 
 const InputField: React.FC<InputFieldProps> = ({
@@ -30,7 +30,7 @@ const InputField: React.FC<InputFieldProps> = ({
           {title}
         </label>
         <input
-          type="type"
+          type={type}
           id={name}
           name={name}
           className="form__input"

@@ -9,14 +9,15 @@ import { getDefaultWallets, RainbowKitProvider, darkTheme, midnightTheme } from 
 import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
 
 import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
-import { Footer, Header } from "@/components/views/main";
+import { Footer, Header, ICOSale } from "@/components/views/main";
+import { useState } from "react";
 
 
 export default function AppProviders(
     { children }: Readonly<{
         children: React.ReactNode;
     }>) {
-
+    const [loader, setLoader] = useState<boolean>(false);
     const SEPOLIA = process.env.NEXT_PUBLIC_SEPOLIA_RPC_URL;
     const EXPLORER = process.env.NEXT_PUBLIC_ADDRESS_EXPLORER;
     const CHAIN_ID = process.env.NEXT_PUBLIC_CHAIN_ID;
@@ -83,10 +84,11 @@ export default function AppProviders(
     return (
         <WagmiConfig client={wagmiClient}>
             <RainbowKitProvider chains={chains} theme={theme}>
-                <Header></Header>
+                <Header setLoader={setLoader}></Header>
                 <div className="min-h-[100vh]">
                     {children}
                 </div>
+                <ICOSale setLoader={setLoader} />
                 <Footer></Footer>
                 <Toaster />
             </RainbowKitProvider>

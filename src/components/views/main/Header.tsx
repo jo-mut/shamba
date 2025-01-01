@@ -1,15 +1,23 @@
 "use client"
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
+import ICOSale from "./ICOSale";
 
-const Header = () => {
+interface HeaderProps {
+  setLoader: Dispatch<SetStateAction<boolean>>,
+
+}
+
+const Header: React.FC<HeaderProps> = ({ setLoader }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleToggle = () => {
     setIsMenuOpen(!isMenuOpen);
     console.log(isMenuOpen)
-
   }
+
+  console.log("modal called", document.getElementById("modal-deposit1"))
+
 
   return (
     <header className='flex shadow-[0px_4px_16px_rgba(17,_17,_26,_0.1),_0px_8px_32px_rgba(17,_17,_26,_0.05)] py-4 px-4 sm:px-6 font-[sans-serif] min-h-[75px] tracking-wide relative z-50'>
@@ -71,6 +79,9 @@ const Header = () => {
         <div className='flex items-center max-lg:ml-auto space-x-4'>
           <ConnectButton showBalance={false}></ConnectButton>
           <button
+            data-bs-target="#modal-deposit1"
+            type="button"
+            data-bs-toggle="modal"
             className='px-3.5 py-[7px] text-[15px] rounded font-semibold text-white border border-[#007bff] hover:bg-[#007bff] transition-all ease-in-out duration-300 bg-transparent hover:text-white'>Token ICO
           </button>
 

@@ -79,24 +79,29 @@ export const loadTokenICO = async () => {
         const contract = await tokenIcoContract();
         const tokenAddress = await contract.tokenAddress();
 
-        const tokenDetails = await contract.getTokenDetails();
-        const contractOwner = await contract.owner();
-        const soldTokens = await contract.soldTokens();
-        const icoToken = await tokenIcoER20();
+        const ZERO_ADDRESEE = 0x0000000000000000000000000000000000000000;
 
-        const token = {
-            tokenBalance: ethers.utils.formatEther(tokenDetails.balance.toString()),
-            name: tokenDetails.name,
-            symbol: tokenDetails.symbol,
-            supply: ethers.utils.formatEther(tokenDetails.tokenPrice.toString()),
-            tokenPrice: ethers.utils.formatEther(tokenDetails.tokenPrice.toString()),
-            tokenAddress: tokenDetails, tokenAddress,
-            owner: contractOwner.toLowerCase(),
-            soldTokens: soldTokens.toNumber(),
-            token: icoToken
+        if (tokenAddress != ZERO_ADDRESEE) {
+            const tokenDetails = await contract.getTokenDetails();
+            const contractOwner = await contract.owner();
+            const soldTokens = await contract.soldTokens();
+            const icoToken = await tokenIcoER20();
+
+            const token = {
+                tokenBalance: ethers.utils.formatEther(tokenDetails.balance.toString()),
+                name: tokenDetails.name,
+                symbol: tokenDetails.symbol,
+                supply: ethers.utils.formatEther(tokenDetails.tokenPrice.toString()),
+                tokenPrice: ethers.utils.formatEther(tokenDetails.tokenPrice.toString()),
+                tokenAddress: tokenDetails, tokenAddress,
+                owner: contractOwner.toLowerCase(),
+                soldTokens: soldTokens.toNumber(),
+                token: icoToken
+            }
+
+            return token
         }
 
-        return token
     } catch (error) {
         console.log(error)
 
