@@ -96,7 +96,7 @@ const ICOToken: React.FC<ICOTokenProps> = ({
                       name={"Update Token"} />
                   </div>
                 </div>
-                <div className="tab-pane show active" id="tab-f10" role="tabpanel">
+                <div className="tab-pane show" id="tab-f10" role="tabpanel">
                   <div className="row">
                     <Title
                       title={"Update token address in ICO contract"} />
@@ -112,7 +112,7 @@ const ICOToken: React.FC<ICOTokenProps> = ({
                       name={"Update Token"} />
                   </div>
                 </div>
-                <div className="tab-pane show active" id="tab-f11" role="tabpanel">
+                <div className="tab-pane show" id="tab-f11" role="tabpanel">
                   <div className="row">
                     <Title
                       title={"Update token address in ICO contract"} />
