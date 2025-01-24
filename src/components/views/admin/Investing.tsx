@@ -1,3 +1,5 @@
+"use client"
+
 import React from "react";
 import ButtonCmp from "../ui/ButtonCmp";
 import Notification from "./Notification";

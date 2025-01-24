@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useState } from "react";
 import { copyAddress, shortenAddress } from "@/context";
 import { FaRegCopy, FaEdit } from 'react-icons/fa';

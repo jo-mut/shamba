@@ -1,3 +1,4 @@
+"use client"
 import React, { useState } from "react";
 import { IoMdClose } from 'react-icons/io';
 import InputField from "../ui/InputField";
@@ -10,7 +11,7 @@ const UpdateAPYModel = ({
 }: any) => {
   const [amount, setAmount] = useState("");
 
-  const handleModifyPool = async (modifyPoolID: any, amount) => {
+  const handleModifyPool = async (modifyPoolID: any, amount: any) => {
     setLoader(true);
     const receipt = await modifyPool(modifyPoolID, amount);
     if (receipt) {
@@ -19,7 +20,6 @@ const UpdateAPYModel = ({
     }
     setLoader(false);
   }
-
 
   return (
     <div

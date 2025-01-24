@@ -1,3 +1,4 @@
+"use client"
 import { buyToken } from "@/context";
 import { loadTokenICO } from "@/context/constants";
 import React, { useEffect, useRef, useState } from "react";

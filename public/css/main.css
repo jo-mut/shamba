@@ -16,7 +16,7 @@ body {
 body {
   font-family: "Manrope", sans-serif;
   font-weight: 400;
-  background-color: #062d48;
+  background-color: white;
   -webkit-font-smoothing: antialiased;
   /* background: linear-gradient(135deg, #2c337c 0%, #3497fa 50%, #34c5fa 100%); */
 
@@ -680,6 +680,21 @@ body::-webkit-scrollbar-thumb {
 }
 
 /*==============================
+	Sidebar
+==============================*/
+.sidebar {
+  z-index: 10;
+  background-color: #062d48;
+}
+
+@media (max-width: 700px) {
+  .sidebar {
+    max-width: 200px;
+  }
+}
+
+
+/*==============================
 	Hero
 ==============================*/
 
@@ -909,7 +924,7 @@ body::-webkit-scrollbar-thumb {
   font-size: 30px;
   line-height: 40px;
   font-weight: 300;
-  color: #fff;
+  color: black;
   margin-bottom: 16px;
   text-align: center;
   position: relative;
@@ -947,13 +962,13 @@ body::-webkit-scrollbar-thumb {
   font-size: 16px;
   line-height: 26px;
   font-weight: 400;
-  color: #d0d0d0;
+  color: black;
   margin-bottom: 16px;
   text-align: center;
 }
 
 .section__title p a {
-  color: #fff;
+  color: black;
   border-bottom: 2px solid #34c5fa;
 }
 
@@ -1009,7 +1024,7 @@ body::-webkit-scrollbar-thumb {
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  color: #d0d0d0;
+  color: black;
   position: relative;
   font-size: 14px;
   height: 40px;
@@ -1018,7 +1033,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .section__tabs button:hover {
-  color: #fff;
+  color: #374151;
 }
 
 .section__tabs button:before {
@@ -1036,7 +1051,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .section__tabs button.active {
-  color: #fff;
+  color: black;
 }
 
 .section__tabs button.active:before {
@@ -1081,10 +1096,10 @@ body::-webkit-scrollbar-thumb {
   width: 180px;
   height: 60px;
   border-radius: 10px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  border: 2px solid #374151;
   background: linear-gradient(135deg, #173a5c 0%, #227883 50%, #34abfa 100%);
   font-size: 14px;
-  color: #fff;
+  color: black;
   text-transform: uppercase;
   font-weight: 500;
   position: relative;
@@ -1243,10 +1258,8 @@ body::-webkit-scrollbar-thumb {
     margin-bottom: 0;
     margin-top: 24px;
     border-radius: 10px;
-    border: 2px solid rgba(255, 255, 255, 0.05);
-    background: linear-gradient(150deg,
-        rgba(255, 255, 255, 0.03) 0%,
-        rgba(255, 255, 255, 0.01) 100%);
+    border: 2px solid #374151;
+    background: #f3f4f6;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     position: relative;
@@ -1518,9 +1531,7 @@ body::-webkit-scrollbar-thumb {
   margin-top: 24px;
   border-radius: 10px;
   border: 2px solid rgba(255, 255, 255, 0.05);
-  background: linear-gradient(150deg,
-      rgba(255, 255, 255, 0.03) 0%,
-      rgba(255, 255, 255, 0.01) 100%);
+  background: #f3f4f6;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   position: relative;
@@ -1555,7 +1566,7 @@ body::-webkit-scrollbar-thumb {
   font-size: 32px;
   line-height: 100%;
   font-weight: 400;
-  color: #fff;
+  color: black;
   margin-top: 15px;
   margin-bottom: 10px;
 }
@@ -1563,7 +1574,7 @@ body::-webkit-scrollbar-thumb {
 .stats__name {
   font-size: 14px;
   line-height: 24px;
-  color: #d0d0d0;
+  color: black;
   margin-bottom: 0;
 }
 
@@ -1663,10 +1674,8 @@ body::-webkit-scrollbar-thumb {
   width: 100%;
   margin-top: 24px;
   border-radius: 10px;
-  border: 2px solid rgba(255, 255, 255, 0.05);
-  background: linear-gradient(150deg,
-      rgba(255, 255, 255, 0.03) 0%,
-      rgba(255, 255, 255, 0.01) 100%);
+  border: 2px solid #374151;
+  background: #f3f4f6;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   position: relative;
@@ -1685,12 +1694,12 @@ body::-webkit-scrollbar-thumb {
 }
 
 .deals__table thead {
-  border-bottom: 2px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 2px solid #374151;
 }
 
 .deals__table thead th {
   font-size: 12px;
-  color: #d0d0d0;
+  color: black;
   font-weight: 400;
   padding: 20px 15px;
   line-height: 100%;
@@ -1708,7 +1717,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .deals__table tbody tr {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid #374151
 }
 
 .deals__table tbody tr:last-child {
@@ -1734,7 +1743,7 @@ body::-webkit-scrollbar-thumb {
   align-items: center;
   font-size: 14px;
   line-height: 24px;
-  color: #fff;
+  color: black;
 }
 
 .deals__text i {
@@ -1770,7 +1779,7 @@ body::-webkit-scrollbar-thumb {
 .deals__exchange span {
   font-size: 14px;
   line-height: 24px;
-  color: #fff;
+  color: black;
 }
 
 .deals__exchange span.green {
@@ -1784,7 +1793,7 @@ body::-webkit-scrollbar-thumb {
 .deals__exchange i {
   font-size: 20px;
   line-height: 24px;
-  color: #fff;
+  color: black;
   margin: 0 10px;
 }
 
@@ -1801,9 +1810,7 @@ body::-webkit-scrollbar-thumb {
   margin-top: 24px;
   border-radius: 25px 10px 10px 10px;
   border: 2px solid rgba(255, 255, 255, 0.05);
-  background: linear-gradient(150deg,
-      rgba(255, 255, 255, 0.03) 0%,
-      rgba(255, 255, 255, 0.01) 100%);
+  background: #f3f4f6;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   position: relative;
@@ -1815,7 +1822,7 @@ body::-webkit-scrollbar-thumb {
   font-size: 30px;
   line-height: 40px;
   font-weight: 300;
-  color: #fff;
+  color: black;
   margin-bottom: 0;
 }
 
@@ -1823,7 +1830,7 @@ body::-webkit-scrollbar-thumb {
   font-size: 16px;
   line-height: 26px;
   font-weight: 400;
-  color: #d0d0d0;
+  color: black;
   margin-bottom: 0;
   margin-top: 20px;
 }
@@ -1840,7 +1847,7 @@ body::-webkit-scrollbar-thumb {
 
 .invest__table thead th {
   font-size: 14px;
-  color: #d0d0d0;
+  color: black;
   font-weight: 400;
   padding: 20px 15px;
   line-height: 100%;
@@ -1871,7 +1878,7 @@ body::-webkit-scrollbar-thumb {
 
 .invest__table tbody td {
   font-size: 16px;
-  color: #fff;
+  color: black;
   font-weight: 400;
   padding: 20px 15px;
   line-height: 100%;
@@ -1903,12 +1910,12 @@ body::-webkit-scrollbar-thumb {
   font-size: 16px;
   line-height: 26px;
   font-weight: 400;
-  color: #d0d0d0;
+  color: black;
   margin-bottom: 20px;
 }
 
 .invest__list li b {
-  color: #fff;
+  color: black;
   font-weight: 500;
 }
 
@@ -1935,14 +1942,14 @@ body::-webkit-scrollbar-thumb {
 .invest__rate span {
   font-size: 16px;
   line-height: 26px;
-  color: #d0d0d0;
+  color: black;
   margin-bottom: 5px;
 }
 
 .invest__rate p {
   font-size: 20px;
   line-height: 30px;
-  color: #fff;
+  color: black;
   font-weight: 400;
   margin-bottom: 0;
 }
@@ -1956,7 +1963,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .invest__rate p small {
-  color: #d0d0d0;
+  color: black;
   font-weight: 400;
   font-size: 14px;
 }
@@ -1986,7 +1993,7 @@ body::-webkit-scrollbar-thumb {
   font-size: 14px;
   line-height: 24px;
   font-weight: 400;
-  color: #d0d0d0;
+  color: black;
   margin-bottom: 0;
   margin-top: 42px;
   padding-top: 40px;
@@ -2012,7 +2019,7 @@ body::-webkit-scrollbar-thumb {
 .invest__link {
   font-size: 16px;
   line-height: 30px;
-  color: #fff;
+  color: black;
   border-bottom: 2px solid #34abfa;
   margin-top: 30px;
 }
@@ -3049,10 +3056,7 @@ body::-webkit-scrollbar-thumb {
   width: 100%;
   margin-top: 24px;
   border-radius: 10px;
-  border: 2px solid rgba(255, 255, 255, 0.05);
-  background: linear-gradient(150deg,
-      rgba(255, 255, 255, 0.03) 0%,
-      rgba(255, 255, 255, 0.01) 100%);
+  background: #f3f4f6;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   position: relative;
@@ -3073,7 +3077,7 @@ body::-webkit-scrollbar-thumb {
   text-align: center;
   font-size: 16px;
   line-height: 26px;
-  color: #fff;
+  color: black;
   font-weight: 400;
   width: 100%;
   margin-bottom: 0;
@@ -3087,7 +3091,7 @@ body::-webkit-scrollbar-thumb {
   font-size: 24px;
   font-weight: 400;
   line-height: 36px;
-  color: #fff;
+  color: black;
   margin-bottom: 25px;
   margin-top: 24px;
 }
@@ -4321,7 +4325,7 @@ body::-webkit-scrollbar-thumb {
 .form__tagline {
   font-size: 14px;
   line-height: 24px;
-  color: #d0d0d0;
+  color: black;
   margin-left: 20px;
   font-weight: 400;
 }
@@ -4352,7 +4356,7 @@ body::-webkit-scrollbar-thumb {
 .form__group--checkbox input:not(:checked)+label,
 .form__group--checkbox input:checked+label {
   font-size: 14px;
-  color: #d0d0d0;
+  color: black;
   font-weight: normal;
   position: relative;
   cursor: pointer;
@@ -4411,19 +4415,19 @@ body::-webkit-scrollbar-thumb {
 
 .form__group--checkbox label::-moz-selection {
   background: transparent;
-  color: #d0d0d0;
+  color: black;
 }
 
 .form__group--checkbox label::selection {
   background: transparent;
-  color: #d0d0d0;
+  color:black;
 }
 
 .form__label {
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
-  color: #d0d0d0;
+  color: black;
   width: 100%;
   line-height: 100%;
   margin-bottom: 15px;
@@ -4433,30 +4437,30 @@ body::-webkit-scrollbar-thumb {
   width: 100%;
   height: 50px;
   padding: 0 20px;
-  border: 2px solid rgba(255, 255, 255, 0.05);
+  border: 2px solid black;
   background-color: transparent;
   border-radius: 10px;
   font-size: 14px;
-  color: #fff;
+  color: black;
   cursor: default;
   font-weight: 400;
 }
 
 .form__input:hover,
 .form__input:focus {
-  border-color: rgba(255, 255, 255, 0.25);
+  border-color: black;
 }
 
 .form__select {
   width: 100%;
   height: 50px;
   padding: 0 20px;
-  border: 2px solid rgba(255, 255, 255, 0.05);
+  border: 2px solid #374151;
   /* background: url("../img/btn/down.svg") no-repeat center right 20px transparent; */
   background-size: 16px 16px;
   border-radius: 10px;
   font-size: 14px;
-  color: #fff;
+  color: black;
   cursor: default;
   font-weight: 400;
 }
@@ -4467,18 +4471,18 @@ body::-webkit-scrollbar-thumb {
 
 .form__select:hover,
 .form__select:focus {
-  border-color: rgba(255, 255, 255, 0.25);
+  border-color: #374151;
 }
 
 .form__textarea {
   width: 100%;
   height: 140px;
   padding: 15px 20px;
-  border: 2px solid rgba(255, 255, 255, 0.05);
+  border: 2px solid #374151;
   background-color: transparent;
   border-radius: 10px;
   font-size: 14px;
-  color: #fff;
+  color: black;
   cursor: default;
   resize: none;
   font-weight: 400;
@@ -4801,7 +4805,7 @@ body::-webkit-scrollbar-thumb {
 ==============================*/
 
 .modal {
-  background: rgba(6, 64, 96, 0.8);
+  background: rgba(2, 9, 14, 0.5);
 }
 
 .modal--auto .modal-content {
@@ -4819,9 +4823,7 @@ body::-webkit-scrollbar-thumb {
   justify-content: flex-start;
   align-items: flex-start;
   border: 2px solid rgba(255, 255, 255, 0.05);
-  background: linear-gradient(150deg,
-      rgba(255, 255, 255, 0.03) 0%,
-      rgba(255, 255, 255, 0.01) 100%);
+  background: #f3f4f6;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   margin: 0 auto;
@@ -4832,7 +4834,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .modal__title {
-  color: #fff;
+  color: black;
   font-size: 24px;
   line-height: 32px;
   font-weight: 500;
@@ -4842,7 +4844,7 @@ body::-webkit-scrollbar-thumb {
 .modal__text {
   font-size: 14px;
   line-height: 24px;
-  color: #d0d0d0;
+  color: black;
   margin-bottom: 0;
 }
 
@@ -4854,7 +4856,7 @@ body::-webkit-scrollbar-thumb {
   top: 0;
   right: 0;
   z-index: 1;
-  color: #fff;
+  color: black;
   border-left: 2px solid rgba(255, 255, 255, 0.05);
   border-bottom: 2px solid rgba(255, 255, 255, 0.05);
 }
@@ -4877,7 +4879,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .modal-backdrop {
-  background: #062d48;
+  background: #031522;
   z-index: -1;
 }
 

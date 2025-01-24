@@ -11,6 +11,8 @@ import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
 import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
 import { Footer, Header, ICOSale } from "@/components/views/main";
 import { useState } from "react";
+import Sidebar from "@/components/views/main/Sidebar";
+import PoolProvider from "./providers/PoolProvider";
 
 
 export default function AppProviders(
@@ -84,13 +86,22 @@ export default function AppProviders(
     return (
         <WagmiConfig client={wagmiClient}>
             <RainbowKitProvider chains={chains} theme={theme}>
-                <Header setLoader={setLoader}></Header>
-                <div className="min-h-[100vh]">
-                    {children}
-                </div>
-                <ICOSale setLoader={setLoader} />
-                <Footer></Footer>
-                <Toaster />
+                <PoolProvider>
+                    <div className="row">
+                        <div className="col-md-3">
+                            <Sidebar />
+                        </div>
+                        <div className="col-md-9">
+                            <Header setLoader={setLoader}></Header>
+                            <div className="min-h-[100vh]">
+                                {children}
+                            </div>
+                            <ICOSale setLoader={setLoader} />
+                            <Footer></Footer>
+                            <Toaster />
+                        </div>
+                    </div>
+                </PoolProvider>
             </RainbowKitProvider>
         </WagmiConfig>
     );

@@ -1,3 +1,4 @@
+"use client"
 import React, { useState } from "react";
 import InputField from "../ui/InputField";
 import Title from "../ui/Title";
@@ -8,7 +9,7 @@ const Transfer = ({
   address,
   setLoader,
   poolDetails
-}) => {
+}: any) => {
 
   const [amount, setAmount] = useState();
   const [transferAddress, setTransferAddress] = useState();

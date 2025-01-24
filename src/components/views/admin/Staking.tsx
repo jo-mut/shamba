@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useState } from "react";
 import ButtonCmp from "../ui/ButtonCmp";
 import Title from "../ui/Title";

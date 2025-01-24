@@ -1,3 +1,5 @@
+"use client"
+
 import { loadTokenICO } from "@/context/constants";
 import React, { useEffect, useState } from "react";
 import { useAccount } from "wagmi";

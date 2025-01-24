@@ -6,7 +6,6 @@ import { useAccount } from "wagmi";
 import { contractData, sweep, modifyPool, createPool, transferToken } from "../../context"
 import Auth from '@/components/views/admin/Auth';
 import { ICOSale, Loader } from '@/components/views/main';
-import AdminHead from '@/components/views/admin/AdminHead';
 import UpdateAPYModel from '@/components/views/admin/UpdateAPYModel';
 
 const ADMIN_ADDRESS = process.env.NEXT_PUBLIC_ADMIN_ADDRESS!
@@ -33,13 +32,11 @@ export default function Page() {
 
   useEffect(() => {
     loadData();
-
   }, [])
 
 
   return (
     <div>
-      <AdminHead></AdminHead>
       <Admin
         transferToken={transferToken}
         address={address}
