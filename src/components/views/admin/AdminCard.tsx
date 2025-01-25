@@ -6,7 +6,7 @@ const AdminCard = ({
 }: any) => {
   return (
     <div className="cold-12 col-md-4">
-      <div className="stats">
+      <div className="stats shadow-md">
         <span className="stats__value">{value}</span>
         <span className="stats__name">{name}</span>
       </div>

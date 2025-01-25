@@ -88,18 +88,19 @@ export default function AppProviders(
             <RainbowKitProvider chains={chains} theme={theme}>
                 <PoolProvider>
                     <div className="row">
-                        <div className="col-md-3">
+                        <div className="col-md-2 bg-gray-500">
                             <Sidebar />
                         </div>
-                        <div className="col-md-9">
+                        <div className="col-md-10 px-20">
                             <Header setLoader={setLoader}></Header>
                             <div className="min-h-[100vh]">
                                 {children}
                             </div>
                             <ICOSale setLoader={setLoader} />
-                            <Footer></Footer>
+                            
                             <Toaster />
                         </div>
+                        <Footer></Footer>
                     </div>
                 </PoolProvider>
             </RainbowKitProvider>

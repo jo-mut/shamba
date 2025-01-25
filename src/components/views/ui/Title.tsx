@@ -9,7 +9,7 @@ const Title: React.FC<TitleProps> = ({
 }) => {
   return (
     <div className="col-12">
-      <h3 className="profile__title">
+      <h3 className="font-bold text-center mb-4 text-2xl">
         {title}
       </h3>
     </div>

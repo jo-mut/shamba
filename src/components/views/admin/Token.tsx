@@ -11,7 +11,7 @@ const Token = ({
 
   return (
     <div className="col-12 col-lg-12 co-md-9 mt-4">
-      <div className="invest invest__big">
+      <div className="invest invest__big shadow-md">
         <h2 className="invest__title">
           Block Explorer
         </h2>
@@ -51,7 +51,7 @@ const Token = ({
               <td>{token?.contractTokenBalance || "0"} {token?.symbol}</td>
             </tr>
             <tr>
-              <td className="yellow">Explorer Token</td>
+              <td className="font-bold">Explore Token</td>
               <td><a
                 href={`${TOKEN_EXPLORER}${TOKEN}`}
                 style={{ marginLeft: "10px" }}

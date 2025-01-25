@@ -13,7 +13,7 @@ function PoolProvider({ children }: any) {
     const [loader, setLoader] = useState<boolean>(false);
     const [checkAdmin, setCheckAdmin] = useState(false);
     const [poolDetails, setPoolDetails] = useState();
-    const [modifyPoolID, setModifyPoolId] = useState<string>('');
+    const [modifyPoolID, setModifyPoolID] = useState<string>('');
 
     const loadData = async () => {
         if (address) {
@@ -44,7 +44,8 @@ function PoolProvider({ children }: any) {
             sweep,
             modifyPool,
             createPool,
-            transferToken
+            transferToken,
+            setModifyPoolID
         }}>
             {children}
         </PoolContext.Provider>

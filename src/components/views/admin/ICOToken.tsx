@@ -70,9 +70,8 @@ const ICOToken: React.FC<ICOTokenProps> = ({
   return (
     <div className="tab-pane fade show" id="tab-6">
       <div className="tabpanel">
-        <div className="row">
-          <div className="col-12">
-            <div className="profile">
+        <div className="w-1/2 h-auto mx-auto shadow-md rounded-3xl">
+        <div className="profile">
               <ul
                 className="nav nav-tabs section__tabs section__tabs--left"
                 id="section__profile-tabs2"
@@ -132,7 +131,6 @@ const ICOToken: React.FC<ICOTokenProps> = ({
                 </div>
               </div>
             </div>
-          </div>
         </div>
       </div>
     </div>

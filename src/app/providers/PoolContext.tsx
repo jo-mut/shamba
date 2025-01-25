@@ -4,6 +4,7 @@ import { createContext } from 'react';
 interface PoolContextType {
     poolDetails: any | null;
     setPoolDetails: React.Dispatch<React.SetStateAction<any>>;
+    setModifyPoolID: React.Dispatch<React.SetStateAction<any>>,
     loader: boolean;
     setLoader: React.Dispatch<React.SetStateAction<any>>,
     checkAdmin: boolean;
@@ -25,7 +26,8 @@ const PoolContext = createContext<PoolContextType>({
     sweep: () => { },
     modifyPool: () => { },
     createPool: () => { },
-    transferToken: () => { }
+    transferToken: () => { },
+    setModifyPoolID: () => {}
 });
 
 export default PoolContext;

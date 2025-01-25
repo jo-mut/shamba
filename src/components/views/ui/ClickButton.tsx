@@ -9,8 +9,8 @@ const ClickButton = ({
       <button
         type="button"
         onClick={handleClick}
-        className="form__btn form__btn--small">
-          {name}
+        className="flex-1 form__btn ">
+        {name}
       </button>
     </div>
   )
