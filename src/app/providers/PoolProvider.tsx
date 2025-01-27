@@ -22,6 +22,7 @@ function PoolProvider({ children }: any) {
                 setCheckAdmin(true);
                 const data = await contractData(address);
                 setPoolDetails(data);
+                console.log("contract data: ", data);
             }
 
             setLoader(false);
@@ -35,6 +36,7 @@ function PoolProvider({ children }: any) {
 
     return (
         <PoolContext.Provider value={{
+            address,
             poolDetails,
             setPoolDetails,
             setLoader,

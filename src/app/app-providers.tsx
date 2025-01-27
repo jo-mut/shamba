@@ -9,10 +9,11 @@ import { getDefaultWallets, RainbowKitProvider, darkTheme, midnightTheme } from 
 import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
 
 import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
-import { Footer, Header, ICOSale } from "@/components/views/main";
+import { Footer, Header, ICOSale, Loader } from "@/components/views/main";
 import { useState } from "react";
 import Sidebar from "@/components/views/main/Sidebar";
 import PoolProvider from "./providers/PoolProvider";
+import UpdateAPYModal from "@/components/views/admin/UpdateAPYModal";
 
 
 export default function AppProviders(
@@ -97,10 +98,11 @@ export default function AppProviders(
                                 {children}
                             </div>
                             <ICOSale setLoader={setLoader} />
-                            
+                            <UpdateAPYModal/>
+                            {loader && <Loader />}
+                            <Footer></Footer>
                             <Toaster />
                         </div>
-                        <Footer></Footer>
                     </div>
                 </PoolProvider>
             </RainbowKitProvider>

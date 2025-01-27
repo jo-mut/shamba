@@ -6,7 +6,7 @@ import { useAccount } from "wagmi";
 import { contractData, sweep, modifyPool, createPool, transferToken } from "../../context"
 import Auth from '@/components/views/admin/Auth';
 import { ICOSale, Loader } from '@/components/views/main';
-import UpdateAPYModel from '@/components/views/admin/UpdateAPYModel';
+import UpdateAPYModal from '@/components/views/admin/UpdateAPYModal';
 
 const ADMIN_ADDRESS = process.env.NEXT_PUBLIC_ADMIN_ADDRESS!
 
@@ -45,12 +45,6 @@ export default function Page() {
         sweep={sweep}
         poolDetails={poolDetails}
         setModifyPoolID={setModifyPoolId} />
-      <ICOSale setLoader={setLoader} />
-      <UpdateAPYModel
-        setLoader={setLoader}
-        modifyPool={modifyPool}
-        modifyPoolId={modifyPoolID}
-        poolDetails={poolDetails} />
       {!checkAdmin && <Auth />}
       {loader && <Loader />}
     </div>

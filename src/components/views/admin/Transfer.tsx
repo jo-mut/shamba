@@ -24,6 +24,8 @@ const Transfer = ({
     setLoader(false);
   }
 
+  console.log("pool details, ", typeof(poolDetails?.contractTokenBalance))
+
   return (
     <div className="w-1/2 h-auto mx-auto shadow-md bg-gray-100 p-5 rounded-3xl">
       <Title title="Transfer" />
@@ -32,7 +34,7 @@ const Transfer = ({
         type="text"
         title="Available Supply"
         name="method1"
-        value={`${poolDetails?.contractTokenBalance.toString().slice(0, 8) || "0.0"} 
+        value={`${ poolDetails?.contractTokenBalance? poolDetails?.contractTokenBalance.toString().slice(0, 8) : "0.0"} 
             ${poolDetails?.depositedToken.symbol}`}
         disabled={true} />
       <InputField

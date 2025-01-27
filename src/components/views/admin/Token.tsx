@@ -1,5 +1,8 @@
 "use client"
 import React from "react";
+
+
+
 const Token = ({
   token
 }: any) => {
@@ -8,6 +11,8 @@ const Token = ({
   const TOKEN_EXPLORER = process.env.NEXT_PUBLIC_ADDRESS_EXPLORER;
   const ADDRESS_EXPLORER = process.env.NEXT_PUBLIC_TOKEN_EXPLORER;
   const TOKEN = process.env.NEXT_PUBLIC_DEPOSIT_TOKEN;
+
+  console.log("token data", token)
 
   return (
     <div className="col-12 col-lg-12 co-md-9 mt-4">
@@ -29,8 +34,8 @@ const Token = ({
         <table className="invest__table">
           <thead>
             <tr>
-              <th>Token</th>
-              <th>Value</th>
+              <th className="text-2xl font-bold">Token</th>
+              <th className="text-2xl font-bold">Value</th>
             </tr>
           </thead>
           <tbody>
@@ -57,7 +62,6 @@ const Token = ({
                 style={{ marginLeft: "10px" }}
                 target="_blank"
                 className="header__profile">
-                <i className="ti">MdAdminPageSettings</i>
                 <span>
                   {token?.name} {token?.symbol}
                 </span>

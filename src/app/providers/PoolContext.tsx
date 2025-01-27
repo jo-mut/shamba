@@ -2,6 +2,7 @@
 import { createContext } from 'react';
 
 interface PoolContextType {
+    address: string | undefined;
     poolDetails: any | null;
     setPoolDetails: React.Dispatch<React.SetStateAction<any>>;
     setModifyPoolID: React.Dispatch<React.SetStateAction<any>>,
@@ -17,6 +18,7 @@ interface PoolContextType {
 
 
 const PoolContext = createContext<PoolContextType>({
+    address: '',
     poolDetails: null,
     loader: false,
     checkAdmin: false,

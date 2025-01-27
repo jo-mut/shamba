@@ -69,15 +69,22 @@ export const ERC20 = async (address, userAddress) => {
             contractTokenBalance: toEth(await contractReader.balanceOf(STAKING_DAPP_ADDRESS))
         }
 
+        console.log("erc token ", token)
+
         return token;
     }
 }
 
 // TOKEN_ICO_ADDRESS
 export const loadTokenICO = async () => {
+
     try {
         const contract = await tokenIcoContract();
+        console.log("token ico contract: ",  contract)
+
         const tokenAddress = await contract.tokenAddress();
+        
+        console.log("token address: ",  tokenAddress)
 
         const ZERO_ADDRESEE = 0x0000000000000000000000000000000000000000;
 
@@ -99,11 +106,14 @@ export const loadTokenICO = async () => {
                 token: icoToken
             }
 
+
+            console.log("token details: ",  token)
+
             return token
         }
 
     } catch (error) {
-        console.log(error)
+        console.log( "failed to load token ICO: ", error)
 
     }
 }
@@ -142,7 +152,7 @@ export const tokenIcoER20 = async (isAddress, userAddress) => {
             const balance = await contractReader.balanceOf(userAddress)
 
             const token = {
-                address: await contractReader.address(),
+                address: await contractReader.address,
                 name: await contractReader.name(),
                 symbol: await contractReader.symbol(),
                 decimals: await contractReader.decimals(),

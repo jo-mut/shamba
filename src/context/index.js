@@ -87,6 +87,7 @@ export async function contractData(address) {
                 const tokenPoolInfoB = await ERC20(poolInfo.rewardToken, address);
 
                 console.log("pool info", poolInfo)
+                console.log("pool info", poolInfo)
 
 
                 const pool = {
@@ -111,9 +112,14 @@ export async function contractData(address) {
                 return total + parseFloat(pool.depositedAmount);
             }, 0)
 
+            console.log("total deposited amount", totalDepositAmout)
+
+
 
             const rewardToken = await ERC20(DEPOSIT_TOKEN, address);
             const depositedToken = await ERC20(DEPOSIT_TOKEN, address);
+
+            console.log("total deposited amount", depositedToken.contractTokenBalance)
 
             const data = {
                 contractOwner: contractOwner,
@@ -209,17 +215,17 @@ export async function transferToken(amount, transferAddress) {
 export async function withdraw(poolID, amount) {
     try {
         notifySuccess("Calling contract...")
-        const contractObj = await contractObject();
+        const contractObject = await contractObject();
 
 
         const amountInWei = ethers.utils.parseEther(amount.toString());
 
-        const gasEstimation = await contractObj.estimateGas.withdraw(
+        const gasEstimation = await contractObject.estimateGas.withdraw(
             Number(poolID),
             amountInWei
         );
 
-        const data = await contractObj.withdraw(Number(poolID, amountInWei, {
+        const data = await contractObject.withdraw(Number(poolID, amountInWei, {
             gasLimit: gasEstimation,
         }));
 
@@ -236,14 +242,14 @@ export async function withdraw(poolID, amount) {
 export async function claimReward(poolID) {
     try {
         notifySuccess("Calling contract...")
-        const contractObj = await contractObject();
+        const contractObject = await contractObject();
 
 
-        const gasEstimation = await contractObj.estimateGas.claimReward(
+        const gasEstimation = await contractObject.estimateGas.claimReward(
             Number(poolID),
         );
 
-        const data = await contractObj.claimReward(Number(poolID, {
+        const data = await contractObject.claimReward(Number(poolID, {
             gasLimit: gasEstimation,
         }));
 
@@ -266,19 +272,19 @@ export async function createPool(pool) {
         )
         notifySuccess("Calling contract...");
 
-        const contractObj = await contractObject();
+        const contractObject = await contractObject();
 
-        console.log("create pool receipt 1", contractObj);
+        console.log("create pool receipt 1", contractObject);
 
 
-        const gasEstimation = await contractObj.estimateGas.addPool(
+        const gasEstimation = await contractObject.estimateGas.addPool(
             _depositedToken,
             _rewardToken,
             Number(_apy),
             Number(_lockDays)
         );
 
-        const stakeTx = await contractObj.addPool(
+        const stakeTx = await contractObject.addPool(
             _depositedToken,
             _rewardToken,
             Number(_apy),
@@ -298,7 +304,8 @@ export async function createPool(pool) {
     }
 }
 
-export async function modifyPool(poolID, amount) {
+export async function modifyPool(pool, amount) {
+    console.log("pool details when modifying ",pool)
     try {
         const { _depositedToken, _rewardToken, _apy, _lockDays } = pool;
         if (!_depositedToken || !_rewardToken || !_apy || _lockDays) return notifyError(
@@ -306,14 +313,14 @@ export async function modifyPool(poolID, amount) {
         )
         notifySuccess("Calling contract...");
 
-        const contractObj = await contractObject();
+        const contractObject = await contractObject();
 
-        const gasEstimation = await contractObj.estimateGas.modifyPool(
+        const gasEstimation = await contractObject.estimateGas.modifyPool(
             Number(amount),
             Number(poolID)
         );
 
-        const stakeTx = await contractObj.addPool(
+        const stakeTx = await contractObject.addPool(
             Number(amount),
             Number(poolID), {
             gasLimit: gasEstimation,
@@ -363,11 +370,11 @@ export async function sweep(tokenData) {
 // ADD TOKEN TO METAMASK
 export const addTokenToMetamask = async (token) => {
     if (window.ethereum) {
-        const contract = await tokenContract();
+        const contractObject = await tokenContract();
 
-        const tokenDecimals = await contract.decimals();
-        const tokenAddress = await contract.address;
-        const tokenSymbol = await contract.symbol();
+        const tokenDecimals = await contractObject.decimals();
+        const tokenAddress = await contractObject.address;
+        const tokenSymbol = await contractObject.symbol();
         const tokenImage = await TOKEN_LOGO;
 
         try {
@@ -404,15 +411,15 @@ export const addTokenToMetamask = async (token) => {
 export const buyToken = async (amount) => {
     try {
         notifySuccess("Calling ico contract ");
-        const contract = await tokenIcoContract(amount);
-        const tokenDetails = await contract.getTokenDetails();
+        const contractObject = await tokenIcoContract(amount);
+        const tokenDetails = await contractObject.getTokenDetails();
 
         const availableToken = ethers.utils.formatEther(tokenDetails.balance.toString());
 
         if (availableToken > 1) {
             const price = ethers.utils.formatEther(tokenDetails.tokenPrice.toString() * Number(amount));
             const payAmount = ethers.utils.parseUnits(price.toString(), "ether");
-            const transaction = await contract.buyToken(Number(amount), {
+            const transaction = await contractObject.buyToken(Number(amount), {
                 value: payAmount.toString(),
                 gasLimit: ethers.utils.hexlify(8000000),
             });
@@ -435,12 +442,12 @@ export const buyToken = async (amount) => {
 export const tokenWithdraw = async () => {
     try {
         notifySuccess("Calling ico contract ");
-        const contract = await tokenIcoContract();
-        const tokenDetails = await contract.getTokenDetails();
+        const contractObject = await tokenIcoContract();
+        const tokenDetails = await contractObject.getTokenDetails();
         const availableToken = ethers.utils.formatEther(tokenDetails.balance.toString());
 
         if (availableToken > 1) {
-            const transaction = await contract.withdrawAllTokens();
+            const transaction = await contractObject.withdrawAllTokens();
 
             const receipt = await transaction.wait();
             notifySuccess("Transaction successful");
@@ -459,11 +466,14 @@ export const tokenWithdraw = async () => {
 export const updateToken = async (_address) => {
     try {
         if (!_address) return notifyError("Data is missing");
-        const contract = await tokenIcoContract();
+        notifySuccess("Calling contract ");
+        const contractObject = await tokenIcoContract();
 
-        const gasEstimation = await contractObject().estimateGas.updateToken(_address);
+        console.log("update token address to: ",_address)
 
-        const transaction = await contract.updateToken(_address, {
+        const gasEstimation = await contractObject.estimateGas.updateToken(_address);
+
+        const transaction = await contractObject.updateToken(_address, {
             gasLimit: gasEstimation,
         });
 
@@ -481,13 +491,14 @@ export const updateToken = async (_address) => {
 export const updateTokenPrice = async (price) => {
     try {
         if (!price) return notifyError("Data is missing");
-        const contract = await tokenIcoContract();
+        notifySuccess("Calling contract ");
+        const contractObject = await tokenIcoContract();
 
         const payAmount = ethers.utils.parseUnits(price.toString(), "ether");
 
-        const gasEstimation = await contractObject().estimateGas.updateTokenSalePrice(payAmount);
+        const gasEstimation = await contractObject.estimateGas.updateTokenSalePrice(payAmount);
 
-        const transaction = await contract.updateTokenSalePrice(payAmount, {
+        const transaction = await contractObject.updateTokenSalePrice(payAmount, {
             gasLimit: gasEstimation,
         });
 

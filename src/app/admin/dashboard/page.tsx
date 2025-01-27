@@ -2,13 +2,24 @@
 import PoolContext from '@/app/providers/PoolContext'
 import AdminCard from '@/components/views/admin/AdminCard'
 import Token from '@/components/views/admin/Token';
-import React, { useContext } from 'react'
+import { Loader } from '@/components/views/main';
+import React, { useContext, useEffect, useState } from 'react'
 
 function Page() {
     const { poolDetails } = useContext(PoolContext);
+    const [loader, setLoader] = useState(false);
+
+
+    useEffect(() => {
+        setLoader(true)
+        if (poolDetails) {
+            setLoader(false)
+        }
+    }, [poolDetails])
+
     return (
-       <div className='container'>
-         <div className="row">
+        <div className='container'>
+            <div className="row">
                 {poolDetails?.poolInfoArray.map((pool: any, index: number) => (
                     <AdminCard
                         key={index}
@@ -27,7 +38,8 @@ function Page() {
             </div>
             <Token
                 token={poolDetails?.depositedToken} />
-       </div>
+            {loader && <Loader/>}    
+        </div>
     )
 }
 

@@ -61,7 +61,7 @@ const ICOSale = ({
               </i>
             </button>
             <h4 className="modal__title">
-              {tokenDetails?.token.symbol} ICO Token
+              {tokenDetails?.token?.symbol} ICO Token
             </h4>
             <p className="modal__text">
               Participate in the <span>Ongoing ICO Token</span> sale
@@ -71,12 +71,12 @@ const ICOSale = ({
                 <label
                   className="form__label"
                   htmlFor="">
-                  ICO Supply: {""} {`${tokenDetails?.tokenBalance}${tokenDetails?.token.symbol}`}
+                  ICO Supply: {""} {`${tokenDetails?.tokenBalance} ${tokenDetails?.token?.symbol}`}
                 </label>
                 <input
                   type="text"
                   className="form__input"
-                  placeholder={`${tokenDetails?.token.symbol}: ${tokenDetails?.token.balance.toString().slice(0, 12)}`}
+                  placeholder={`${tokenDetails?.token.symbol}: ${tokenDetails?.token.balance?.toString().slice(0, 12)}`}
                   onChange={(e) => setQuantity(Number(e.target.value))} />
               </div>
               <div className="modal__form">

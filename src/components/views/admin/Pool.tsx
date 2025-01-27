@@ -34,13 +34,16 @@ const Pool: React.FC<PoolProps> = ({
   console.log("created pool", poolArray);
 
   const handleCreatePool = async (pool: any) => {
+    if (pool._depositedToken === '' || pool._rewardToken === ''
+      || pool._apy === '' || pool._lockDays === '') return;
+
     setLoader(true);
-    const receipt = await createPool(pool);
-    if (receipt) {
+      const receipt = await createPool(pool);
+      if (receipt) {
+        setLoader(false);
+        window.location.reload();
+      }
       setLoader(false);
-      window.location.reload();
-    }
-    setLoader(false);
   }
 
   return (
@@ -85,7 +88,7 @@ const Pool: React.FC<PoolProps> = ({
       <div className="col-8">
         <div className="row gap-3 ">
           {poolArray.map((pool: any, index: number) => (
-            <div className="flex-1 col-3 pool-item bg-gray-200 rounded-2xl p-3">
+            <div key={index} className="flex-1 col-3 pool-item bg-gray-200 rounded-2xl p-3">
               <h5 className="font-bold mb-3" >#POO-{index}</h5>
               <div className="flex flex-row gap-3">
                 <p className="font-bold"> Stake Token:</p>
@@ -100,7 +103,7 @@ const Pool: React.FC<PoolProps> = ({
                   </span>
                 </p>
               </div>
-              <div className="flex flex-row gap-3">
+              <div className="flex flex-row  gap-3">
                 <p className="font-semibold">Reward Token: </p>
                 <p className="deals__exchange">
                   <span className="flex align-items-center flex-row justify-between red">
