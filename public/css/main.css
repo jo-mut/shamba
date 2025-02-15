@@ -705,6 +705,7 @@ body::-webkit-scrollbar-thumb {
 .hero {
   margin-top: 80px;
   padding: 100px 0 36px;
+  background-color: #1da1f2;
 }
 
 .hero__title {

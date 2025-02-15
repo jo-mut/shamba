@@ -10,10 +10,11 @@ import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
 
 import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
 import { Footer, Header, ICOSale, Loader } from "@/components/views/main";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Sidebar from "@/components/views/main/Sidebar";
 import PoolProvider from "./providers/PoolProvider";
 import UpdateAPYModal from "@/components/views/admin/UpdateAPYModal";
+import { redirect } from "next/navigation";
 
 
 export default function AppProviders(
@@ -21,6 +22,7 @@ export default function AppProviders(
         children: React.ReactNode;
     }>) {
     const [loader, setLoader] = useState<boolean>(false);
+    const [adminPage, setAdminPage] = useState(false)
     const SEPOLIA = process.env.NEXT_PUBLIC_SEPOLIA_RPC_URL;
     const EXPLORER = process.env.NEXT_PUBLIC_ADDRESS_EXPLORER;
     const CHAIN_ID = process.env.NEXT_PUBLIC_CHAIN_ID;
@@ -98,7 +100,7 @@ export default function AppProviders(
                                 {children}
                             </div>
                             <ICOSale setLoader={setLoader} />
-                            <UpdateAPYModal/>
+                            <UpdateAPYModal />
                             {loader && <Loader />}
                             <Footer></Footer>
                             <Toaster />

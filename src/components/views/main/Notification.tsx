@@ -1,6 +1,6 @@
 import React from "react";
 
-const Notification = () => {
+const Notification = ({poolDetails}) => {
   return <div>Notification</div>;
 };
 

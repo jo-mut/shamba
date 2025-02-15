@@ -1,6 +1,12 @@
 import React from "react";
 
-const PoolsModel = () => {
+const PoolsModel = ({
+  deposit,
+  poolID,
+  address,
+  selectedToken,
+  setLoader
+}) => {
   return <div>PoolsModel</div>;
 };
 

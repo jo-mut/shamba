@@ -1,6 +1,9 @@
 import React from "react";
 
-const Withdraw = () => {
+const Withdraw = ({
+  setWithdrawPoolID,
+  poolDetails
+}) => {
   return <div>Withdraw</div>;
 };
 
