@@ -9,7 +9,6 @@ function Page() {
     const { poolDetails } = useContext(PoolContext);
     const [loader, setLoader] = useState(false);
 
-
     useEffect(() => {
         setLoader(true)
         if (poolDetails) {
@@ -27,7 +26,7 @@ function Page() {
                         name={`Current APY: ${pool.apy}`} />
                 ))}
                 <AdminCard
-                    value={`${poolDetails?.deÌpositedAmount || "0.0"} ${poolDetails?.depositedToken.symbol}`}
+                    value={`${poolDetails?.totalDepositAmount || "0.0"} ${poolDetails?.depositedToken.symbol}`}
                     name={`Total Stake`} />
                 <AdminCard
                     value={`${poolDetails?.depositedToken?.balance?.slice(0, 8) || "0.0"} ${poolDetails?.depositedToken.symbol}`}

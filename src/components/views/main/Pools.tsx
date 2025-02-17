@@ -7,7 +7,8 @@ const Pools = ({
   setSelectedToken,
   setPoolID
 }) => {
-  const poolArray = poolDetails?.poolInforArray ?? [];
+  const poolArray = poolDetails?.poolInfoArray ?? [];
+  console.log("show pool array details ", poolArray)
   return (
     <div id="staking" className="section">
       <div className="container">
@@ -135,9 +136,9 @@ const Pools = ({
                   type="button"
                   data-bs-toggle="modal"
                   onClick={() => {
-                    setPoolID(index == 0 ? 0 : index == 1 ? 1 : index == 2 ? 2 : ""),
-                      setSelectedPool(pool),
-                      setSelectedToken(pool)
+                    setPoolID(index == 0 ? 0 : index == 1 ? 1 : index == 2 ? 2 : "")
+                    setSelectedPool(pool)
+                    setSelectedToken(pool)
                   }}>
                   Invest
                 </button>
