@@ -12,8 +12,8 @@ const Sidebar = ({
 ) => {
     return (
         <nav className="sidebar shadow-lg h-screen fixed top-0 left-0 min-w-[250px] py-6 px-4 font-[sans-serif] overflow-auto">
-            <div className='flex flex-row items-center justify-center bg-white'>
-                <img src="/img/logo.png" className='w-20' alt="Logo" />
+            <div className='flex flex-row items-center justify-center'>
+                <p className='text-white font-extrabold text-4xl'>Sha(::)mba</p>
             </div>
 
             <ul className="mt-6">

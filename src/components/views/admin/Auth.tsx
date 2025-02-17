@@ -13,7 +13,7 @@ const Auth = () => {
                 Sorry you are <span>not authorized to </span> access the admin panel
               </p>
               <div className="modal__form">
-                <Link href="/home" className="form__btn" type="button"> Go Home</Link>
+                <Link href="/admin/dashboard" className="form__btn" type="button"> Go to Admin</Link>
               </div>
             </div>
           </div>

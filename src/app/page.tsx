@@ -1,12 +1,17 @@
 "use client"
+import Auth from "@/components/views/admin/Auth";
 import Pool from "@/components/views/admin/Pool";
-import { Header, HeroSection, ICOSale, Notification, 
-  Pools, PoolsModel, Statistics, Token, Withdraw, WithdrawModal } from "@/components/views/main";
+import {
+  Header, HeroSection, ICOSale, Loader, Notification,
+  Pools, PoolsModel, Statistics, Token, Withdraw, WithdrawModal
+} from "@/components/views/main";
 import { addTokenToMetamask, claimReward, contractData, deposit } from "@/context";
 import Head from "next/head";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
+
+const ADMIN_ADDRESS = process.env.NEXT_PUBLIC_ADMIN_ADDRESS!
 
 export default function Page() {
   const { address } = useAccount();
@@ -18,14 +23,21 @@ export default function Page() {
   const [poolDetails, setPoolDetails] = useState();
   const [selectedPool, setSelectedPool] = useState();
   const [selectedToken, setSelectedToken] = useState();
+  const [checkAdmin, setCheckAdmin] = useState(false);
+
 
   const loadData = async () => {
-    setLoader(true);
-    const data = await contractData(address);
-    setPoolDetails(data);
-    setLoader(false);
-  }
+    if (address) {
+      setLoader(true)
+      if (address?.toLowerCase() == ADMIN_ADDRESS?.toLowerCase()) {
+        setCheckAdmin(true);
+        const data = await contractData(address);
+        setPoolDetails(data);
+      }
 
+      setLoader(false);
+    }
+  }
 
   useEffect(() => {
     loadData()
@@ -33,35 +45,8 @@ export default function Page() {
 
   return (
     <>
-      <HeroSection
-        poolDetails={poolDetails}
-        addTokenToMetamask={addTokenToMetamask} />
-      <Statistics
-        poolDetails={poolDetails} />
-      <Pools
-        poolDetails={poolDetails}
-        setSelectedPool={setSelectedPool}
-        setSelectedToken={setSelectedToken}
-        setPoolID={setPoolID} />
-      <Token
-        poolDetails={poolDetails} />
-      <Withdraw
-        setWithdrawPoolID={setWithdrawPoolID}
-        poolDetails={poolDetails} />
-      <Notification poolDetails={poolDetails} />
-       <PoolsModel
-        deposit={deposit}
-        poolID={poolID}
-        address={address}
-        selectedToken={selectedToken}
-        setLoader={setLoader} />
-      <WithdrawModal
-        withdraw={withdraw}
-        withdrawPoolID={withdrawPoolID}
-        address={address}
-        setLoader={setLoader}
-        claimReward={claimReward} />
-      <ICOSale loader={loader} />
+      {!checkAdmin && <Auth />}
+      {loader && <Loader />}
     </>
   );
 }
