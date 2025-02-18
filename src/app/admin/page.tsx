@@ -1,53 +1,106 @@
 "use client"
+import PoolContext from '@/app/providers/PoolContext'
+import AdminCard from '@/components/views/admin/AdminCard';
+import Token from '@/components/views/admin/Token';
+import { Loader } from '@/components/views/main';
+import React, { useContext, useEffect, useState } from 'react'
 
-import Admin from '@/components/views/admin/Admin'
-import React, { useEffect, useState } from "react";
-import { useAccount } from "wagmi";
-import { contractData, sweep, modifyPool, createPool, transferToken } from "../../context"
-import Auth from '@/components/views/admin/Auth';
-import { ICOSale, Loader } from '@/components/views/main';
-import UpdateAPYModal from '@/components/views/admin/UpdateAPYModal';
+function Page() {
+    const { poolDetails } = useContext(PoolContext);
+    const [loader, setLoader] = useState(false);
 
-const ADMIN_ADDRESS = process.env.NEXT_PUBLIC_ADMIN_ADDRESS!
+    const STAKING_DAPP = process.env.NEXT_PUBLIC_STAKING_DAPP;
+    const TOKEN_EXPLORER = process.env.NEXT_PUBLIC_ADDRESS_EXPLORER;
+    const ADDRESS_EXPLORER = process.env.NEXT_PUBLIC_TOKEN_EXPLORER;
+    const TOKEN = process.env.NEXT_PUBLIC_DEPOSIT_TOKEN;
+    const token = poolDetails?.depositedToken
 
-export default function Page() {
-  const { address } = useAccount();
-  const [loader, setLoader] = useState<boolean>(false);
-  const [checkAdmin, setCheckAdmin] = useState(false);
-  const [poolDetails, setPoolDetails] = useState();
-  const [modifyPoolID, setModifyPoolId] = useState<string>('');
+    useEffect(() => {
+        setLoader(true)
+        if (poolDetails) {
+            setLoader(false)
+        }
+    }, [poolDetails])
 
-  const loadData = async () => {
-    if (address) {
-      setLoader(true)
-      if (address?.toLowerCase() == ADMIN_ADDRESS?.toLowerCase()) {
-        setCheckAdmin(true);
-        const data = await contractData(address);
-        setPoolDetails(data);
-      }
-
-      setLoader(false);
-    }
-  }
-
-  useEffect(() => {
-    loadData();
-  }, [])
-
-
-  return (
-    <div>
-      <Admin
-        transferToken={transferToken}
-        address={address}
-        setLoader={setLoader}
-        createPool={createPool}
-        sweep={sweep}
-        poolDetails={poolDetails}
-        setModifyPoolID={setModifyPoolId} />
-      {!checkAdmin && <Auth />}
-      {loader && <Loader />}
-    </div>
-
-  )
+    return (
+        <div className='container'>
+            <div className="row">
+                {poolDetails?.poolInfoArray.map((pool: any, index: number) => (
+                    <AdminCard
+                        key={index}
+                        value={`${pool.depositedAmount || "0.0"} ${pool.depositedToken.symbol}`}
+                        name={`Current APY: ${pool.apy}`} />
+                ))}
+                <AdminCard
+                    value={`${poolDetails?.totalDepositAmount || "0.0"} ${poolDetails?.depositedToken.symbol}`}
+                    name={`Total Stake`} />
+                <AdminCard
+                    value={`${poolDetails?.depositedToken?.balance?.slice(0, 8) || "0.0"} ${poolDetails?.depositedToken.symbol}`}
+                    name={`Your Balance`} />
+                <AdminCard
+                    value={`${poolDetails?.contractTokenBalance || "0.0"} ${poolDetails?.depositedToken.symbol}`}
+                    name={`Available Supply`} />
+            </div>
+            <div className="col-12 col-lg-12 co-md-9 mt-4">
+                <div className="invest invest__big shadow-md">
+                    <h2 className="invest__title">
+                        Block Explorer
+                    </h2>
+                    <div className="invest__group">
+                        <input
+                            className="form__input"
+                            defaultValue={`${ADDRESS_EXPLORER}${STAKING_DAPP}`}
+                            name="partnerlink"
+                            id="partnerlink"
+                            type="text" />
+                    </div>
+                    <p className="invest__text">
+                        Stake Token stats Crypto King Best return on your investment
+                    </p>
+                    <table className="invest__table">
+                        <thead>
+                            <tr>
+                                <th className="text-2xl font-bold">Token</th>
+                                <th className="text-2xl font-bold">Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Name</td>
+                                <td>{token?.name}</td>
+                            </tr>
+                            <tr>
+                                <td>Symbol</td>
+                                <td>{token?.symbol}</td>
+                            </tr>
+                            <tr>
+                                <td>Total Supply</td>
+                                <td>{token?.totalSupply}{token?.symbol}</td>
+                            </tr>
+                            <tr>
+                                <td>Total Stake</td>
+                                <td>{token?.contractTokenBalance || "0"} {token?.symbol}</td>
+                            </tr>
+                            <tr>
+                                <td className="font-bold">Explore Token</td>
+                                <td><a
+                                    href={`${TOKEN_EXPLORER}${TOKEN}`}
+                                    style={{ marginLeft: "10px" }}
+                                    target="_blank"
+                                    className="header__profile">
+                                    <span>
+                                        {token?.name} {token?.symbol}
+                                    </span>
+                                </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            {loader && <Loader />}
+        </div>
+    )
 }
+
+export default Page

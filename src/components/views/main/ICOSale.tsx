@@ -4,7 +4,6 @@ import { loadTokenICO } from "@/context/constants";
 import React, { useEffect, useRef, useState } from "react";
 import { useAccount } from "wagmi";
 import { IoMdClose } from 'react-icons/io';
-import InputField from "../ui/InputField";
 
 const CURRENCY = process.env.NEXT_PUBLIC_CURRENCY;
 
@@ -76,7 +75,7 @@ const ICOSale = ({
                 <input
                   type="text"
                   className="form__input"
-                  placeholder={`${tokenDetails?.token.symbol}: ${tokenDetails?.token.balance?.toString().slice(0, 12)}`}
+                  placeholder={`${tokenDetails?.token?.symbol}: ${tokenDetails?.token.balance?.toString().slice(0, 12)}`}
                   onChange={(e) => setQuantity(Number(e.target.value))} />
               </div>
               <div className="modal__form">

@@ -22,7 +22,7 @@ contract StakingDapp is Ownable, ReentrancyGuard {
     }
 
     struct PoolInfo {
-        IERC20 depositedToken;
+        IERC20 depositToken;
         IERC20 rewardToken;
         uint256 depositedAmount;
         uint256 apy;
@@ -41,20 +41,20 @@ contract StakingDapp is Ownable, ReentrancyGuard {
     uint public poolCount;
     PoolInfo[] public poolInfo;
 
-    mapping(address => uint256) public depositedToken;
+    mapping(address => uint256) public depositToken;
     mapping(uint256 => mapping(address => UserInfo)) public userInfo;
 
     Notification[] public notifications;
 
     function addPool(
-        IERC20 _depositedToken,
+        IERC20 _depositToken,
         IERC20 _rewardToken,
         uint256 _apy,
         uint _lockDays
     ) public onlyOwner {
         poolInfo.push(
             PoolInfo({ 
-                depositedToken: _depositedToken, 
+                depositToken: _depositToken, 
                 rewardToken: _rewardToken, 
                 depositedAmount: 0, 
                 apy: _apy, 
@@ -77,7 +77,7 @@ contract StakingDapp is Ownable, ReentrancyGuard {
 
             _createNotification(_poolID, pending, msg.sender, "Claim");
 
-            pool.depositedToken.transferFrom(msg.sender, address(this), _amount);
+            pool.depositToken.transferFrom(msg.sender, address(this), _amount);
 
             pool.depositedAmount += _amount;
 
@@ -87,7 +87,7 @@ contract StakingDapp is Ownable, ReentrancyGuard {
             // user.lockUntil = block.timestamp + (pool.lockDays * 86400);
             user.lockUntil = block.timestamp + (pool.lockDays * 60);
 
-            depositedToken[address(pool.depositedToken)] += _amount;
+            depositToken[address(pool.depositToken)] += _amount;
 
             _createNotification(_poolID, _amount, msg.sender, "Deposit");
         }
@@ -109,9 +109,9 @@ contract StakingDapp is Ownable, ReentrancyGuard {
         if (_amount > 0) {
             user.amount -= _amount;
             pool.depositedAmount -= _amount;
-            depositedToken[address(pool.depositedToken)] += _amount;
+            depositToken[address(pool.depositToken)] += _amount;
 
-            pool.depositedToken.transfer(msg.sender, _amount);
+            pool.depositToken.transfer(msg.sender, _amount);
         }
 
         user.lastRewardAt = block.timestamp;
@@ -146,7 +146,7 @@ contract StakingDapp is Ownable, ReentrancyGuard {
         uint256 token_balance = IERC20(token).balanceOf(address(this));
         require(_amount <= token_balance, "Amount exceeds balance");
         require(
-            token_balance - _amount >= depositedToken[token],
+            token_balance - _amount >= depositToken[token],
             "Can't withdraw deposited token"
         );
 

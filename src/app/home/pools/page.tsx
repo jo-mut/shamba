@@ -1,12 +1,21 @@
+"use client"
+import { Pool, PoolDetails } from "@/app/types/types";
 import React from "react";
 import { FaRegCopy } from "react-icons/fa";
+
+interface PageProps {
+  poolDetails: PoolDetails;
+  setSelectedPool: (pool: Pool) => void;
+  setSelectedToken: (pool: Pool) => void;
+  setPoolID: (poolID: string | number) => void;
+}
 
 const Pools = ({
   poolDetails,
   setSelectedPool,
   setSelectedToken,
   setPoolID
-}) => {
+}: PageProps) => {
   const poolArray = poolDetails?.poolInfoArray ?? [];
   console.log("show pool array details ", poolArray)
   return (
@@ -21,7 +30,7 @@ const Pools = ({
           </div>
         </div>
         <div className="row">
-          {poolArray?.map((pool, index) => (
+          {poolArray?.map((pool: Pool, index: number) => (
             <div key={index} className={`col-12 ${index === 0 || index === 1 ? "col-md-6" : index === 2 ? "" : ""} col-lg-4`}>
               <div
                 key={index}
@@ -46,12 +55,12 @@ const Pools = ({
                     <button className="active"
                       data-bs-toggle="tab"
                       data-bs-target={
-                        index = 0 ? "#atab-1" : index == 1 ? "#atab-3" : index == 2 ? "#atab-5" : ""
+                        index == 0 ? "#atab-1" : index == 1 ? "#atab-3" : index == 2 ? "#atab-5" : ""
                       }
                       type="button"
                       role="tab"
                       aria-controls={
-                        index = 0 ? "atab-1" : index == 1 ? "atab-3" : index == 2 ? "atab-5" : ""
+                        index == 0 ? "atab-1" : index == 1 ? "atab-3" : index == 2 ? "atab-5" : ""
                       }
                       aria-selected={true}>
                       {pool?.lockDays} Days
@@ -61,12 +70,12 @@ const Pools = ({
                     <button
                       data-bs-toggle="tab"
                       data-bs-target={
-                        index = 0 ? "#atab-2" : index == 1 ? "#atab-4" : index == 2 ? "#atab-6" : ""
+                        index == 0 ? "#atab-2" : index == 1 ? "#atab-4" : index == 2 ? "#atab-6" : ""
                       }
                       type="button"
                       role="tab"
                       aria-controls={
-                        index = 0 ? "atab-2" : index == 1 ? "atab-4" : index == 2 ? "atab-6" : ""
+                        index == 0 ? "atab-2" : index == 1 ? "atab-4" : index == 2 ? "atab-6" : ""
                       }
                       aria-selected={false}>
                       Details
@@ -76,29 +85,29 @@ const Pools = ({
                 <div className="tab-content">
                   <div
                     className="tab-pane  fade show active"
-                    id={index = 0 ? "#atab-1" : index == 1 ? "#atab-3" : index == 2 ? "#atab-5" : ""}
+                    id={index == 0 ? "#atab-1" : index == 1 ? "#atab-3" : index == 2 ? "#atab-5" : ""}
                     role="tabpanel">
                     <div className="apool_content">
                       <span className="apool__value">
                         Deposited: {pool?.amount}
-                        {pool?.depositedToken.symbol}
+                        {pool?.depositToken.symbol}
                       </span>
                       <span className="apool__value">
                         Reward: {pool?.userReward}
-                        {pool?.depositedToken.symbol}
+                        {pool?.depositToken.symbol}
                       </span>
                     </div>
                   </div>
                   <div className="tab-pane fade"
-                    id={index = 0 ? "atab-2" : index == 1 ? "atab-4" : index == 2 ? "atab-6" : ""}
+                    id={index == 0 ? "atab-2" : index == 1 ? "atab-4" : index == 2 ? "atab-6" : ""}
                     role="tabpanel">
                     <div className="apool__content">
                       <span
                         className="apool__value">
                         <b>
-                          {pool?.depositedToken.symbol} &nbsp;
+                          {pool?.depositToken.symbol} &nbsp;
                         </b> : {" "}
-                        {pool?.depositedToken.address.slice(0, 15)}...{" "}
+                        {pool?.depositToken.address.slice(0, 15)}...{" "}
                         <FaRegCopy />
                       </span>
                       <span
@@ -127,7 +136,7 @@ const Pools = ({
                     type="text"
                     className="apool__input"
                     style={{ backgroundColor: "transparennt" }}
-                    placeholder={`${pool?.depositedAmount} ${pool?.depositedToken.symbol}`}
+                    placeholder={`${pool?.depositedAmount} ${pool?.depositToken.symbol}`}
                     disabled />
                 </div>
                 <button

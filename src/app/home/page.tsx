@@ -1,61 +1,150 @@
 "use client"
-import React, { useContext, useEffect, useState } from "react";
-import { Footer, Header, HeroSection, ICOSale, Notification, Pools, PoolsModel, Statistics, Token, Withdraw, WithdrawModal } from "../../components/views/main";
+
+import { loadTokenICO } from "@/context/constants";
+import React, { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
-import { add } from "lodash";
-import { addTokenToMetamask, claimReward, contractData, deposit } from "@/context";
-import Pool from "@/components/views/admin/Pool";
-import PoolContext from "../providers/PoolContext";
 
-const Home = () => {
-  const { poolDetails } = useContext(PoolContext);
+const CURRENCY = process.env.NEXT_PUBLIC_CURRENCY;
+
+interface TokenDetails {
+  soldTokens: number,
+  symbol: string,
+  supply: number,
+  tokenBal: number,
+}
+
+interface PageProps {
+  addTokenToMetamask: () => void
+}
+
+const Page = ({
+  addTokenToMetamask
+}: PageProps) => {
   const { address } = useAccount();
-  const [loader, setLoader] = useState(false);
-  const [contactUS, setContactUs] = useState(false);
-  const [poolID, setPoolID] = useState();
-  const [withdrawPoolID, setWithdrawPoolID] = useState();
-  const [withdraw, setWithdraw] = useState();
-  const [selectedPool, setSelectedPool] = useState();
-  const [selectedToken, setSelectedToken] = useState();
+  const [percentage, setPercentage] = useState<number>();
+  const [tokenDetails, setTokenDetails] = useState<TokenDetails>();
 
-  console.log("pools details from context ", poolDetails)
+  useEffect(() => {
+    if (address) {
+      const loadToken = async () => {
+        const token: any = await loadTokenICO();
+        setTokenDetails(token);
+      }
+
+      loadToken();
+    }
+  }, [address])
+
+  useEffect(() => {
+    const calculatePercentage = () => {
+      const tokenSold = tokenDetails?.soldTokens ?? 0;
+      const tokenTotalSupply = tokenSold + Number(tokenDetails?.tokenBal) * 1
+
+      const percentageNew = (tokenSold / tokenTotalSupply * 100)
+
+      if (tokenTotalSupply === 0) {
+        console.log("Token balance is zero, cannot calculate percentage");
+      } else {
+        setPercentage(percentageNew)
+      }
+
+      const timer = setTimeout(calculatePercentage, 1000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [tokenDetails])
 
   return (
-    <>
-      <HeroSection
-        poolDetails={poolDetails}
-        addTokenToMetamask={addTokenToMetamask} />
-      <Statistics
-        poolDetails={poolDetails} />
-      <Pools
-        poolDetails={poolDetails}
-        setSelectedPool={setSelectedPool}
-        setSelectedToken={setSelectedToken}
-        setPoolID={setPoolID} />
-      {/* <Token
-        poolDetails={poolDetails} /> */}
-      <Withdraw
-        setWithdrawPoolID={setWithdrawPoolID}
-        poolDetails={poolDetails} />
-      <Notification
-        poolDetails={poolDetails}
-        page={'activity'} />
-      <PoolsModel
-        deposit={deposit}
-        poolID={poolID}
-        address={address}
-        selectedPool={selectedPool}
-        selectedToken={selectedToken}
-        setLoader={setLoader} />
-      <WithdrawModal
-        withdraw={withdraw}
-        withdrawPoolID={withdrawPoolID}
-        address={address}
-        setLoader={setLoader}
-        claimReward={claimReward} />
-      <ICOSale loader={loader} />
-    </>
+    <section id="home" className="hero">
+      <div className="container">
+        <div className="row">
+          <div className="col-12 col-lg-7 col-xl-6">
+            <div className="hero__content hero__content--first">
+              <h1 className="hero__title">
+                <strong>Crypto King</strong>
+                <br />
+                Best return on your investment
+              </h1>
+              <div className="hero__btns">
+                <a data-bs-target="#modal-deposit1"
+                  type="button"
+                  data-bs-toggle="modal"
+                  className="hero__btn">
+                  BUY {tokenDetails?.symbol || ""}
+                  Token
+                </a>
+                <a onClick={() => addTokenToMetamask()}
+                  className="hero__btn hero__btn--light">
+                  Add Token {tokenDetails?.symbol || ""}
+                </a>
+              </div>
+            </div>
+          </div>
+          <div className="col-12 col-md-6 col-lg-5 col-xl-4 offset-xl-2">
+            <div className="node node--hero">
+              <h3 className="node__title node__title--red">
+                <b>{tokenDetails?.symbol || " "}</b> TOKEN ICO
+                <span className="node__date">
+                  {tokenDetails?.symbol || " "}
+                  {CURRENCY}
+                </span>
+                <span className="node__price">
+                  ICO Left: <b>
+                    {tokenDetails?.tokenBal || " "}
+                    {tokenDetails?.symbol}
+                  </b>
+                </span>
+                <span className="node__line">
+                  <img src="img/dodgers/dots--line-red.svg" alt="" />
+                </span>
+                <ul className="node__list">
+                  <li>
+                    <i className="ti">
+                      {/* <TiTick /> */}
+                    </i>
+                    <b>1.1%</b> of the deposit amount
+                  </li>
+                  <li>
+                    <i className="ti">
+                      {/* <TiTick /> */}
+                    </i>
+                    <b>
+                      {tokenDetails?.supply}
+                      {tokenDetails?.symbol}
+                    </b> {" "} total supply
+                  </li>
+                </ul>
+                <div className="progressbar progressbar--cta">
+                  <h3 className="progressbar__title">
+                    ICO Sale: {tokenDetails?.soldTokens} {tokenDetails?.symbol}
+                  </h3>
+                  <div className="progress"
+                    role="progressbar"
+                    aria-label="animated stripped"
+                    aria-valuenow={75}
+                    aria-valuemin={0}
+                    aria-valuemax={100}>
+                    <div
+                      className="progress-bar progress-bar-striped progress-bar-animated"
+                      style={{
+                        width: `${percentage}%`
+                      }}>
+                      <span>{tokenDetails?.soldTokens}</span>
+                    </div>
+                    <span>
+                      <div className="progressbar__value progressbar_value-left">
+                        {Number(tokenDetails?.tokenBal || 0) + Number(tokenDetails?.soldTokens || 0)}
+                      </div>
+                    </span>
+                  </div>
+                </div>
+              </h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   )
 };
 
-export default Home;
+export default Page;

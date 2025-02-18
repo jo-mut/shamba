@@ -5,48 +5,59 @@ import {
   Header, HeroSection, ICOSale, Loader, Notification,
   Pools, PoolsModel, Statistics, Token, Withdraw, WithdrawModal
 } from "@/components/views/main";
-import { addTokenToMetamask, claimReward, contractData, deposit } from "@/context";
+import Sidebar from "@/components/views/ui/Sidebar";
+import { addTokenToMetamask, claimReward, contractData, createPool, deposit, sweep, transferToken } from "@/context";
 import Head from "next/head";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useAccount } from "wagmi";
+import PoolContext from "./providers/PoolContext";
 
 const ADMIN_ADDRESS = process.env.NEXT_PUBLIC_ADMIN_ADDRESS!
 
 export default function Page() {
-  const { address } = useAccount();
-  const [loader, setLoader] = useState(false);
-  const [contactUS, setContactUs] = useState(false);
-  const [poolID, setPoolID] = useState();
-  const [withdrawPoolID, setWithdrawPoolID] = useState();
-  const [withdraw, setWithdraw] = useState();
-  const [poolDetails, setPoolDetails] = useState();
-  const [selectedPool, setSelectedPool] = useState();
-  const [selectedToken, setSelectedToken] = useState();
+  const { poolDetails, address, loader, setLoader, setModifyPoolID } = useContext(PoolContext);
   const [checkAdmin, setCheckAdmin] = useState(false);
 
 
-  const loadData = async () => {
+  const checkAccount = async () => {
     if (address) {
-      setLoader(true)
       if (address?.toLowerCase() == ADMIN_ADDRESS?.toLowerCase()) {
-        setCheckAdmin(true);
-        const data = await contractData(address);
-        setPoolDetails(data);
+        setCheckAdmin(false);
       }
-
-      setLoader(false);
     }
   }
 
   useEffect(() => {
-    loadData()
-  }, [])
+    checkAccount()
+  }, [address])
 
   return (
     <>
-      {!checkAdmin && <Auth />}
-      {loader && <Loader />}
+      <Sidebar
+        checkAdmin={checkAdmin}
+        setModifyPoolID={setModifyPoolID}
+        sweep={sweep}
+        createPool={createPool}
+        address={address}
+        setLoader={setLoader}
+        poolDetails={poolDetails}
+        transferToken={transferToken} />
+      {/* {!checkAdmin && <Auth />} */}
+      <PoolsModel
+        deposit={deposit}
+        poolID={poolID}
+        address={address}
+        selectedPool={selectedPool}
+        selectedToken={selectedToken}
+        setLoader={setLoader} />
+      <WithdrawModal
+        withdraw={withdraw}
+        withdrawPoolID={withdrawPoolID}
+        address={address}
+        setLoader={setLoader}
+        claimReward={claimReward} />
+      <ICOSale loader={loader} />
     </>
   );
 }

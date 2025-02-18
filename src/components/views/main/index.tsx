@@ -1,31 +1,15 @@
-import Header from "./Header";
-import Footer from "./Footer";
-import Pools from "./Pools";
-import PoolsModel from "./PoolsModel";
-import HeroSection from "./HeroSection";
-import WithdrawModal from "./WithdrawModal";
+import Header from "../ui/Header";
+import Footer from "../ui/Footer";
 import Withdraw from "./Withdraw";
-import Statistics from "./Statistics";
 import Token from "./Token";
 import Loader from "./Loader";
-import Notification from "./Notification";
 import ICOSale from "./ICOSale";
-import Contact from "./Contact";
-import Ask from "./Ask";
 
 export {
   Header,
   ICOSale,
-  HeroSection,
   Loader,
   Footer,
-  Pools,
-  PoolsModel,
-  WithdrawModal,
   Withdraw,
-  Statistics,
   Token,
-  Notification,
-  Ask,
-  Contact,
 };

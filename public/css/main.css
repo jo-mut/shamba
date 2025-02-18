@@ -705,14 +705,14 @@ body::-webkit-scrollbar-thumb {
 .hero {
   margin-top: 80px;
   padding: 100px 0 36px;
-  background-color: #1da1f2;
+  background-color: #f3f4f6;
 }
 
 .hero__title {
   font-size: 32px;
   line-height: 48px;
   text-transform: uppercase;
-  color: #fff;
+  color: black;
   font-weight: 300;
   margin-bottom: 0;
 }
@@ -726,7 +726,7 @@ body::-webkit-scrollbar-thumb {
   font-size: 16px;
   line-height: 26px;
   font-weight: 400;
-  color: #d0d0d0;
+  color: black;
   margin-bottom: 16px;
   margin-top: 15px;
 }
@@ -765,14 +765,14 @@ body::-webkit-scrollbar-thumb {
   border: 2px solid rgba(255, 255, 255, 0.3);
   background: linear-gradient(135deg, #1b232b 0%, #4e6b6f 50%, #28363f 100%);
   font-size: 14px;
-  color: #fff;
+  color: white;
   text-transform: uppercase;
   font-weight: 500;
   position: relative;
 }
 
 .hero__btn--light {
-  background: transparent;
+  background: #4e6b6f;
 }
 
 .hero__btn:before,
@@ -798,6 +798,8 @@ body::-webkit-scrollbar-thumb {
 
 .hero__btn:hover {
   border-color: #374151;
+  background: linear-gradient(135deg, #1b232b 0%, #4e6b6f 50%, #28363f 100%);
+
 
 }
 

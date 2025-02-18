@@ -1,7 +1,7 @@
 "use client"
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import React, { Dispatch, SetStateAction, useState } from "react";
-import ICOSale from "./ICOSale";
+import ICOSale from "../main/ICOSale";
 
 interface HeaderProps {
   setLoader: Dispatch<SetStateAction<boolean>>,

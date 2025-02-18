@@ -3,11 +3,9 @@
 import React, { useState } from "react";
 import { copyAddress, shortenAddress } from "@/context";
 import { FaRegCopy, FaEdit } from 'react-icons/fa';
-import ButtonCmp from "../ui/ButtonCmp";
-import InputField from "../ui/InputField";
-import Title from "../ui/Title";
-import ClickButton from "../ui/ClickButton";
-
+import InputField from "@/components/views/ui/InputField";
+import Title from "@/components/views/ui/Title";
+import ClickButton from "@/components/views/ui/ClickButton";
 
 interface PoolProps {
   setModifyPoolID: any

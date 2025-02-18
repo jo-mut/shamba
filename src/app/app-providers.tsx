@@ -5,16 +5,15 @@ import { Toaster, ToastType } from "react-hot-toast";
 import merge from "lodash/merge";
 import "@rainbow-me/rainbowkit/styles.css";
 
-import { getDefaultWallets, RainbowKitProvider, darkTheme, midnightTheme } from "@rainbow-me/rainbowkit";
-import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
+import { getDefaultWallets, RainbowKitProvider, midnightTheme } from "@rainbow-me/rainbowkit";
+import { configureChains, createClient, WagmiConfig } from "wagmi";
 
 import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
 import { Footer, Header, ICOSale, Loader } from "@/components/views/main";
 import { useEffect, useState } from "react";
-import Sidebar from "@/components/views/main/Sidebar";
+import Sidebar from "@/components/views/ui/Sidebar";
 import PoolProvider from "./providers/PoolProvider";
 import UpdateAPYModal from "@/components/views/admin/UpdateAPYModal";
-import { redirect } from "next/navigation";
 
 
 export default function AppProviders(
@@ -22,7 +21,6 @@ export default function AppProviders(
         children: React.ReactNode;
     }>) {
     const [loader, setLoader] = useState<boolean>(false);
-    const [adminPage, setAdminPage] = useState(false)
     const SEPOLIA = process.env.NEXT_PUBLIC_SEPOLIA_RPC_URL;
     const EXPLORER = process.env.NEXT_PUBLIC_ADDRESS_EXPLORER;
     const CHAIN_ID = process.env.NEXT_PUBLIC_CHAIN_ID;

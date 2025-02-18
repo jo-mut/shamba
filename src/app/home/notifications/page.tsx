@@ -1,8 +1,15 @@
+"use client"
+import { Notification, PoolDetails } from "@/app/types/types";
 import { copyAddress, shortenAddress } from "@/context";
 import React from "react";
 import { FaRegCopy } from "react-icons/fa";
 
-const Notification = ({ poolDetails, page }) => {
+interface PageProps {
+  poolDetails: PoolDetails;
+  page: string;
+}
+
+const Page = ({ poolDetails, page }: PageProps) => {
 
   const notificationsArray = poolDetails?.notifications ?? [];
 
@@ -37,7 +44,7 @@ const Notification = ({ poolDetails, page }) => {
                 </tr>
               </thead>
               <tbody>
-                {notificationsArray.map((item, index) => (
+                {notificationsArray.map((notification: Notification, index: number) => (
                   <tr key={index}>
                     <td>
                       <div className="deals__exchange">
@@ -54,7 +61,7 @@ const Notification = ({ poolDetails, page }) => {
                     </td>
                     <td>
                       <div className="deals__text deals__text--green">
-                        {shortenAddress(item.user)} &nbsp; &nbsp; {" "}
+                        {shortenAddress(notification.user)} &nbsp; &nbsp; {" "}
                         <span className="red">
                           &nbsp; &nbsp; {" "}
                           <FaRegCopy
@@ -64,17 +71,17 @@ const Notification = ({ poolDetails, page }) => {
                     </td>
                     <td>
                       <div className="deals__text">
-                        {`#00-${item?.poolID}`}
+                        {`#00-${notification?.poolID}`}
                       </div>
                     </td>
                     <td>
                       <div className="deals__text deals__text--sell">
-                        {`${item?.amount}`} {poolDetails?.rewardToken.symbol}
+                        {`${notification?.amount}`} {poolDetails?.rewardToken.symbol}
                       </div>
                     </td>
                     <td>
                       <div className="deals__text deals__text--sell">
-                        {`${item?.timestamp}`}
+                        {`${notification?.timestamp}`}
                       </div>
                     </td>
                   </tr>
@@ -97,4 +104,4 @@ const Notification = ({ poolDetails, page }) => {
   )
 };
 
-export default Notification;
+export default Page;
