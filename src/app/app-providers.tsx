@@ -114,9 +114,9 @@ export default function AppProviders(
                 <PoolProvider>
                     <div className="row">
                         <div className="col-md-2 bg-gray-500">
-                            <Sidebar checkAdmin={checkAdmin} />
+                            <Sidebar checkAdmin={false} />
                         </div>
-                        <div className="col-md-10 px-20">
+                        <div className="col-md-10">
                             <Header loggedIn={loggedIn} setLoader={setLoader}></Header>
                             <div className="min-h-[100vh]">
                                 {children}

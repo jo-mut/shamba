@@ -1,8 +1,9 @@
 "use client"
 
 import { loadTokenICO } from "@/context/constants";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useAccount } from "wagmi";
+import PoolContext from "../providers/PoolContext";
 
 const CURRENCY = process.env.NEXT_PUBLIC_CURRENCY;
 
@@ -13,14 +14,10 @@ interface TokenDetails {
   tokenBalance: number,
 }
 
-interface PageProps {
-  addTokenToMetamask: () => void
-}
 
-const Page = ({
-  addTokenToMetamask
-}: PageProps) => {
+const Page = () => {
   const { address } = useAccount();
+  const { poolDetails, addTokenToMetamask } = useContext(PoolContext);
   const [percentage, setPercentage] = useState<number>();
   const [tokenDetails, setTokenDetails] = useState<TokenDetails>();
 

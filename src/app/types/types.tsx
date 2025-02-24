@@ -1,3 +1,5 @@
+import { Token } from "@/components/views/main";
+
 export type RewardToken = {
     rewardToken: string;
     symbol: string;
@@ -9,6 +11,16 @@ export type RewardToken = {
 
 export type DepositToken = {
     depositToken: string;
+    symbol: string;
+    address: string
+    contractTokenBalance: string;
+    totalSupply: string;
+    name: string
+    balance: string
+}
+
+export type Token = {
+    token: DepositToken | RewardToken;
     symbol: string;
     address: string
     contractTokenBalance: string;

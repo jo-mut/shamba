@@ -10,6 +10,8 @@ function Page() {
     const { poolDetails } = useContext(PoolContext);
     const [loader, setLoader] = useState(false);
 
+    console.log("pool details ", poolDetails)
+
     const STAKING_DAPP = process.env.NEXT_PUBLIC_STAKING_DAPP;
     const TOKEN_EXPLORER = process.env.NEXT_PUBLIC_ADDRESS_EXPLORER;
     const ADDRESS_EXPLORER = process.env.NEXT_PUBLIC_TOKEN_EXPLORER;

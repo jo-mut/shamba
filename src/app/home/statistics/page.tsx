@@ -11,7 +11,7 @@ const Statistics = () => {
     <div className="section">
       <div className="container">
         <div className="row">
-          {poolDetails?.poolInfoArray.map((pool: Pool, index: number) => (
+          {poolDetails?.poolInfoArray?.map((pool: Pool, index: number) => (
             <div className="col-12 col-sm-6 col-xl-3"
               key={index}>
               <div className="stats">
@@ -60,7 +60,7 @@ const Statistics = () => {
                       <span>
                         Stake Supply
                       </span>
-                      <p>{poolDetails?.depositToken.totalSupply}</p>
+                      <p>{poolDetails?.depositToken?.totalSupply}</p>
                     </div>
                     <div className="invest__green">
                       <img src="img/graph/graph2.svg" alt="" />
@@ -72,7 +72,7 @@ const Statistics = () => {
                     <div className="invest__rate">
                       <span>Total Stake</span>
                       <p className="green">
-                        {poolDetails?.depositToken?.contractTokenBalance} {poolDetails?.depositToken.symbol}
+                        {poolDetails?.depositToken?.contractTokenBalance} {poolDetails?.depositToken?.symbol}
                       </p>
                     </div>
                     <div className="invest__graph">
@@ -86,7 +86,7 @@ const Statistics = () => {
                       className="invest__rate">
                       <span>Reward Token</span>
                       <p className="green">
-                        {poolDetails?.rewardToken?.totalSupply} {poolDetails?.rewardToken.symbol}
+                        {poolDetails?.rewardToken?.totalSupply} {poolDetails?.rewardToken?.symbol}
                       </p>
                     </div>
                     <div className="invest__graph">

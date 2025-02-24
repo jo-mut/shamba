@@ -64,12 +64,12 @@ const ICOSale = ({
                 <label
                   className="form__label"
                   htmlFor="">
-                  ICO Supply: {""} {`${tokenDetails?.tokenBalance || 1000} ${tokenDetails?.token?.symbol || "STN"}`}
+                  ICO Supply: {""} {`${tokenDetails?.supply || 1000} ${tokenDetails?.token?.symbol || "STN"}`}
                 </label>
                 <input
                   type="text"
                   className="form__input"
-                  placeholder={`${tokenDetails?.token?.symbol || "STN"}: ${tokenDetails?.token.balance?.toString().slice(0, 12) || 0.0}`}
+                  placeholder={`${tokenDetails?.token?.symbol || "STN"}: ${tokenDetails?.token?.tokenBalance?.toString().slice(0, 12) || 0.0}`}
                   onChange={(e) => setQuantity(Number(e.target.value))} />
               </div>
               <div className="modal__form">

@@ -87,17 +87,10 @@ export async function contractData(address) {
             for (let i = 0; i < length; i++) {
                 const poolInfo = await contractObj.poolInfo(i);
 
-                // console.log("pool info", poolInfo)
-
-                console.log("pool info address", address)
-
                 const userInfo = await contractObj.userInfo(i, address);
                 const userReward = await contractObj.pendingReward(i, address);
-                // const tokenPoolInfoA = await ERC20(poolInfo.depositToken, address);
-                // const tokenPoolInfoB = await ERC20(poolInfo.rewardToken, address);
-
-               
-
+                const tokenPoolInfoA = await ERC20(poolInfo.depositToken, address);
+                const tokenPoolInfoB = await ERC20(poolInfo.rewardToken, address);
 
                 const pool = {
                     depositTokenAddress: poolInfo.depositToken,
@@ -117,18 +110,16 @@ export async function contractData(address) {
             }
 
 
-            const totalDepositAmout = poolInfoArray.reduce((total, pool) => {
+            const totalDepositAmount = poolInfoArray.reduce((total, pool) => {
                 return total + parseFloat(pool.depositedAmount);
             }, 0)
 
-            console.log("total deposited amount", totalDepositAmout)
-
-
+            console.log("total deposited amount", totalDepositAmount)
 
             const rewardToken = await ERC20(DEPOSIT_TOKEN, address);
             const depositToken = await ERC20(DEPOSIT_TOKEN, address);
 
-            console.log("total deposited amount", depositToken.contractTokenBalance)
+            console.log("contractTokenBalance", depositToken.contractTokenBalance)
 
             const data = {
                 contractOwner: contractOwner,
@@ -137,8 +128,8 @@ export async function contractData(address) {
                 rewardToken: rewardToken,
                 depositToken: depositToken,
                 poolInfoArray: poolInfoArray,
-                totalDepositAmout: totalDepositAmout,
-                contractTokenBalance: depositToken.contractTokenBalance - totalDepositAmout,
+                totalDepositAmout: totalDepositAmount,
+                contractTokenBalance: depositToken.contractTokenBalance - totalDepositAmount,
             }
 
             return data;

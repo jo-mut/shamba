@@ -12,7 +12,7 @@ const Transfer = () => {
 
   const handleTransfer = async (amount: any, transferAddress: any) => {
     setLoader(true);
-    const receipt = await transferToken(amount, transferAddress);
+    const receipt: any = await transferToken(amount, transferAddress);
     if (receipt) {
       setLoader(false);
       window.location.reload();
@@ -48,7 +48,7 @@ const Transfer = () => {
         placeholder="address"
         handleChange={(e) => setTransferAddress(e.target.value)} />
       <ClickButton
-        name={`Transfer ${poolDetails?.depositToken.symbol}`}
+        name={`Transfer ${poolDetails?.depositToken?.symbol}`}
         handleClick={() => handleTransfer(amount, transferAddress)} />
     </div>
   )

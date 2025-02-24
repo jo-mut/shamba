@@ -1,6 +1,7 @@
 "use client"
 import PoolContext from "@/app/providers/PoolContext";
 import { Pool, PoolDetails } from "@/app/types/types";
+import { copyAddress, shortenAddress } from "@/context";
 import React, { useContext } from "react";
 import { FaRegCopy } from "react-icons/fa";
 
@@ -21,125 +22,87 @@ const Pools = ({
     <div id="staking" className="section">
       <div className="container">
         <div className="row">
-          <div className="col-12 col-lg-8 offset-lg-2 col-xl-6 offset-xl-3">
-            <div className="section__title">
-              <h2>Staking Pools</h2>
-              <p>Lorem ipsum dolor sit amet const qui labore excepturi rem? Voluptates, sapi</p>
-            </div>
-          </div>
-        </div>
-        <div className="row">
-          {poolArray?.map((pool: Pool, index: number) => (
-            <div key={index} className={`col-12 ${index === 0 || index === 1 ? "col-md-6" : index === 2 ? "" : ""} col-lg-4`}>
-              <div
-                key={index}
-                className="apool">
-                <h3 className="apool__title">
-                  {index == 0
-                    ? "Maximum"
-                    : index == 1
-                      ? "Standard"
-                      : index == 2
-                        ? "Lite"
-                        : "Advance"}
-                </h3>
-                <ul className={`nav nav-tabs apool__tabs 
-                apool__tabs--${index == 0 ? "orange" : index == 1 ? "green" : index == 2 ? "blue" : "orange"
-                  }`}
-                  id={
-                    index == 0 ? "#apool__tab1" : index == 1 ? "#apool__tab2" : index == 2 ? "#apool__tab3" : ""
-                  }
-                  role="tablist">
-                  <li className="nav-item" role="presentation">
-                    <button className="active"
-                      data-bs-toggle="tab"
-                      data-bs-target={
-                        index == 0 ? "#atab-1" : index == 1 ? "#atab-3" : index == 2 ? "#atab-5" : ""
-                      }
-                      type="button"
-                      role="tab"
-                      aria-controls={
-                        index == 0 ? "atab-1" : index == 1 ? "atab-3" : index == 2 ? "atab-5" : ""
-                      }
-                      aria-selected={true}>
-                      {pool?.lockDays} Days
-                    </button>
+          {poolArray.map((pool: any, index: number) => (
+            <div key={index} className="col-12 col-md-6 col-lg-4">
+              <div className="node">
+                <div className="node-title">
+                  <h3 className="font-bold">
+                    {index == 0
+                      ? "Maximum"
+                      : index == 1
+                        ? "Standard"
+                        : index == 2
+                          ? "Lite"
+                          : "Advance"}
+                  </h3>
+                  <h3 className="font-bold">#POO-{index}</h3>
+                </div>
+                <ul className="node-list">
+                  <li className="node-text tokens">
+                    <span>
+                      Deposited: {pool?.amount} &nbsp;
+                      {pool?.depositToken.symbol} &nbsp;
+                    </span>
+                    <span>
+                      Reward: {pool?.userReward} &nbsp;
+                      {pool?.depositToken.symbol}
+                    </span>
                   </li>
-                  <li className="nav-item" role="presentation">
-                    <button
-                      data-bs-toggle="tab"
-                      data-bs-target={
-                        index == 0 ? "#atab-2" : index == 1 ? "#atab-4" : index == 2 ? "#atab-6" : ""
-                      }
-                      type="button"
-                      role="tab"
-                      aria-controls={
-                        index == 0 ? "atab-2" : index == 1 ? "atab-4" : index == 2 ? "atab-6" : ""
-                      }
-                      aria-selected={false}>
-                      Details
-                    </button>
+                  <li className="node-text stake-token">
+                    <div className="node-align">
+                      <span> Stake Token:</span>
+                      <span>{shortenAddress(pool.depositTokenAddress)}</span>
+                      <span className="red">
+                        &nbsp; &nbsp;
+                        {pool.depositToken.symbol}
+                        &nbsp; &nbsp;
+                      </span>
+                      <FaRegCopy
+                        onClick={() => copyAddress(pool.depositTokenAddress)} />
+                    </div>
                   </li>
+                  <li className="node-text reward-token">
+                    <div className="node-align">
+                      <span>Reward Token: </span>
+                      <span>{shortenAddress(pool.rewardTokenAddress)}</span>
+                      <span className="red">
+                        &nbsp; &nbsp;
+                        {pool.rewardToken.symbol}
+                        &nbsp; &nbsp;
+                      </span>
+                      <FaRegCopy
+                        onClick={() => copyAddress(pool.rewardTokenAddress)} />
+                    </div>
+                  </li>
+                  <li className="node-text deposit-amount">
+                    <span>Deposited Amount:</span> &nbsp; &nbsp;
+                    <span className="deals-text text-green-700">
+                      {pool.depositedAmount}
+                      {pool.depositToken.symbol}
+                    </span>
+                  </li>
+                  <li className="node-text apy">
+                    <span>APY:</span> &nbsp; &nbsp;
+                    <span className="deals-text text-green-700">
+                      {pool.apy} %
+                    </span>
+                  </li>
+                  <li className="node-text lock-days">
+                    <span>Lock Days:</span> &nbsp; &nbsp;
+                    <span className="deals-text deals-text-sell">
+                      {pool.lockDays} days
+                    </span>
+                  </li>
+                  <li className="node-text total-deposited-amount">
+                    <span>Total deposited amount:</span> &nbsp; &nbsp;
+                    <span className="node-text text-green-700">
+                      {pool?.depositedAmount || 0.0} {pool?.depositToken.symbol}%
+                    </span>
+                  </li>
+
                 </ul>
-                <div className="tab-content">
-                  <div
-                    className="tab-pane  fade show active"
-                    id={index == 0 ? "#atab-1" : index == 1 ? "#atab-3" : index == 2 ? "#atab-5" : ""}
-                    role="tabpanel">
-                    <div className="apool_content">
-                      <span className="apool__value">
-                        Deposited: {pool?.amount}
-                        {pool?.depositToken.symbol}
-                      </span>
-                      <span className="apool__value">
-                        Reward: {pool?.userReward}
-                        {pool?.depositToken.symbol}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="tab-pane fade"
-                    id={index == 0 ? "atab-2" : index == 1 ? "atab-4" : index == 2 ? "atab-6" : ""}
-                    role="tabpanel">
-                    <div className="apool__content">
-                      <span
-                        className="apool__value">
-                        <b>
-                          {pool?.depositToken.symbol} &nbsp;
-                        </b> : {" "}
-                        {pool?.depositToken.address.slice(0, 15)}...{" "}
-                        <FaRegCopy />
-                      </span>
-                      <span
-                        className="apool__value">
-                        <b>
-                          {pool?.rewardToken.symbol} &nbsp;
-                        </b> : {" "}
-                        {pool?.rewardToken.address.slice(0, 15)}...{" "}
-                        <FaRegCopy />
-                      </span>
-                      <span
-                        className="apool__value">
-                        <b>
-                          Current APY &nbsp;
-                        </b> : {" "}
-                        {pool?.apy}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <div className="apool__group">
-                  <label htmlFor="pool1" className="apool__label">
-                    Total Deposited amount
-                  </label>
-                  <input
-                    type="text"
-                    className="apool__input"
-                    style={{ backgroundColor: "transparennt" }}
-                    placeholder={`${pool?.depositedAmount} ${pool?.depositToken.symbol}`}
-                    disabled />
-                </div>
                 <button
-                  className="apool__btn"
+                  className="node-btn"
                   data-bs-target="#modal-apool"
                   type="button"
                   data-bs-toggle="modal"
@@ -150,19 +113,9 @@ const Pools = ({
                   }}>
                   Invest
                 </button>
-                <span className={`block-icon block-icon--${index == 0 ? "orange" : index == 1 ? "green" : index == 2 ? "blue" : "orange"}`}>
-                  {/* <MdOutlineAttachMoney
-                    style={{
-                      color: "white",
-                      fontSize: "1.5rem"
-                    }} /> */}
-                </span>
-                <span className="screw screw--line-tr">
-
-                </span>
               </div>
             </div>
-          )).slice(0, 3)}
+          ))}
         </div>
       </div>
     </div>

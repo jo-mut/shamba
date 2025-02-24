@@ -4,14 +4,8 @@ import { Pool, PoolDetails } from "@/app/types/types";
 import React, { useContext } from "react";
 import { FaRegCopy } from "react-icons/fa";
 
-interface PageProps {
-  setWithdrawPoolID: (id: string | number) => void,
-}
-
-const Page = ({
-  setWithdrawPoolID,
-}: PageProps) => {
-  const { poolDetails } = useContext(PoolContext);
+const Page = () => {
+  const { poolDetails, setWithdrawPoolID } = useContext(PoolContext);
   const poolArray = poolDetails?.poolInfoArray ?? [];
 
   return (
@@ -23,34 +17,34 @@ const Page = ({
               <div
                 key={index}
                 className="node">
-                <h3 className={`node__tile node__title--${index == 0 ? "orange" : index == 1 ? "green"
+                <h3 className={`node-title font-bold node-title-${index == 0 ? "orange" : index == 1 ? "green"
                   : index == 2
                     ? "blue"
                     : "orange"}`}>
                   <b>{pool?.amount}</b> {pool?.rewardToken.symbol}
                 </h3>
 
-                <span className="node__date">
+                <span className="node-date font-semibold">
                   {pool?.lockDays} days
                 </span>
-                <span className="node__price">
+                <span className="node-price font-semibold">
                   {" "}
-                  <b>Reward:</b> {pool?.userReward} {pool?.rewardToken.symbol}
+                  Reward: {pool?.userReward} {pool?.rewardToken.symbol}
                 </span>
 
-                <span className="node__line">
-                  <img src="img/dodgers/dots--line-orange.svg" alt="" />
-                </span>
-
-                <ul className="node__list">
+                <ul className="node-list mt-3">
                   <li>
-                    <b>{pool?.depositToken.symbol} &nbsp; &nbsp; </b>
-                    {pool?.depositToken.address.slice(0, 15)}...<FaRegCopy />
+                    <div className="flex flex-row align-items-center">
+                      <b>{pool?.depositToken.symbol} &nbsp; &nbsp; </b>
+                      {pool?.rewardToken.address.slice(0, 15)} &nbsp; <FaRegCopy />
+                    </div>
                   </li>
                   <li>
-                    <b>{pool?.rewardToken.symbol} &nbsp; &nbsp; </b>
-                    {pool?.rewardToken.address.slice(0, 15)}...<FaRegCopy />
-                  </li>                  
+                    <div className="flex flex-row align-items-center">
+                      <b>{pool?.rewardToken.symbol} &nbsp; &nbsp; </b>
+                      {pool?.rewardToken.address.slice(0, 15)} &nbsp; <FaRegCopy />
+                    </div>
+                  </li>
                   <li>
                     <b>Current APY &nbsp; &nbsp; </b>
                     {pool?.apy} %
@@ -63,15 +57,15 @@ const Page = ({
                 </ul>
 
                 <button
-                  className="node__btn"
+                  className="node-btn"
                   data-bs-target="#modal-node"
                   type="button"
                   data-bs-toggle="modal"
                   onClick={() => {
-                      setWithdrawPoolID(index == 0 ? 0 : index == 1 ? 1 : index == 2 ? 2 : "")
+                    setWithdrawPoolID(index == 0 ? 0 : index == 1 ? 1 : index == 2 ? 2 : "")
                   }}>
                   Withdraw / Claim
-                </button>     
+                </button>
               </div>
             </div>
           )).slice(0, 3)}

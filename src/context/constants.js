@@ -1,5 +1,5 @@
 import { ethers } from "ethers";
-import StakingDappABI from "./StakingDapp.json";
+import StakingDappABI from "./StakingDapp.json"
 import TokenICO from "./TokenICO.json";
 import CustomTokenABI from "./ERC20.json";
 
@@ -36,8 +36,13 @@ export const stakingContract = async (stakingToken, initialOwner) => {
     const provider = new ethers.providers.Web3Provider(window.ethereum)
     const { ethereum } = window;
 
+
     if (ethereum) {
         const signer = provider.getSigner();
+        console.log("Contract Address:", STAKING_DAPP_ADDRESS);
+        console.log("Signer:", signer);
+
+        console.log("ABI:", StakingDappABI.abi);
         const contractReader = new ethers.Contract(
             STAKING_DAPP_ADDRESS,
             StakingDappABI.abi,
@@ -80,11 +85,11 @@ export const loadTokenICO = async () => {
 
     try {
         const contract = await tokenIcoContract();
-        console.log("token ico contract: ",  contract)
+        console.log("token ico contract: ", contract)
 
         const tokenAddress = await contract.tokenAddress();
-        
-        console.log("token address: ",  tokenAddress)
+
+        console.log("token address: ", tokenAddress)
 
         const ZERO_ADDRESEE = 0x0000000000000000000000000000000000000000;
 
@@ -98,7 +103,7 @@ export const loadTokenICO = async () => {
                 tokenBalance: ethers.utils.formatEther(tokenDetails.balance.toString()),
                 name: tokenDetails.name,
                 symbol: tokenDetails.symbol,
-                supply: ethers.utils.formatEther(tokenDetails.tokenPrice.toString()),
+                supply: ethers.utils.formatEther(tokenDetails.supply.toString()),
                 tokenPrice: ethers.utils.formatEther(tokenDetails.tokenPrice.toString()),
                 tokenAddress: tokenDetails, tokenAddress,
                 owner: contractOwner.toLowerCase(),
@@ -107,13 +112,13 @@ export const loadTokenICO = async () => {
             }
 
 
-            console.log("token details: ",  token)
+            console.log("token details: ", token)
 
             return token
         }
 
     } catch (error) {
-        console.log( "failed to load token ICO: ", error)
+        console.log("failed to load token ICO: ", error)
 
     }
 }

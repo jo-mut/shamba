@@ -1,5 +1,6 @@
 "use client"
 import { createContext } from 'react';
+import { DepositToken, Token } from '../types/types';
 
 interface PoolContextType {
     address: string | undefined;
@@ -10,10 +11,12 @@ interface PoolContextType {
     setLoader: React.Dispatch<React.SetStateAction<any>>,
     checkAdmin: boolean;
     modifyPoolID: string;
-    sweep: any
-    modifyPool: any
-    createPool: any
-    transferToken: any
+    sweep: (token: Token) => void;
+    modifyPool: () => void;
+    createPool: () => void;
+    transferToken: (amount: string, transferAddress: string) => void;
+    addTokenToMetamask: () => void;
+    setWithdrawPoolID: (index: string | number) => void;
 }
 
 
@@ -28,8 +31,10 @@ const PoolContext = createContext<PoolContextType>({
     sweep: () => { },
     modifyPool: () => { },
     createPool: () => { },
-    transferToken: () => { },
-    setModifyPoolID: () => {}
+    transferToken: (amount: string, transferAddress: string) => { },
+    setModifyPoolID: () => {},
+    addTokenToMetamask: () => {},
+    setWithdrawPoolID: (index: string | number) => {}
 });
 
 export default PoolContext;

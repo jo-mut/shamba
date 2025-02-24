@@ -17,7 +17,7 @@ function Page() {
 
     const handleSweep = async (token: any) => {
         setLoader(true);
-        const receipt = await sweep(token);
+        const receipt: any = await sweep(token);
         if (receipt) {
             setLoader(false);
             window.location.reload();

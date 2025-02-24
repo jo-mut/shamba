@@ -1,3 +1,4 @@
+import { PoolDetails } from "@/app/types/types";
 
 const url = process.env.NEXT_PUBLIC_SHAMBA_BACKEND_URL!;
 
@@ -15,3 +16,9 @@ export default async function fetchPools() {
         console.log("Failed to fetch pools", error)
     }
 }
+
+// export default async function savePoolDetails(poolDetails: PoolDetails) {
+//     const response = await fetch(`${url}save-pools`, {
+//         method: "POST"
+//     })
+// }

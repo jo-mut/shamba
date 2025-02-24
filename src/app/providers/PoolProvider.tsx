@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import PoolContext from './PoolContext'
 import { useAccount } from 'wagmi';
-import { contractData, sweep, modifyPool, createPool, transferToken } from "../../context"
+import { contractData, sweep, modifyPool, createPool, transferToken, addTokenToMetamask} from "../../context"
 
 
 const ADMIN_ADDRESS = process.env.NEXT_PUBLIC_ADMIN_ADDRESS!
@@ -14,6 +14,7 @@ function PoolProvider({ children }: any) {
     const [checkAdmin, setCheckAdmin] = useState(false);
     const [poolDetails, setPoolDetails] = useState();
     const [modifyPoolID, setModifyPoolID] = useState<string>('');
+    const [withdrawalPoolID, setWithdrawPoolID] = useState<string | number>();
 
     const loadData = async () => {
         if (address) {
@@ -47,7 +48,9 @@ function PoolProvider({ children }: any) {
             modifyPool,
             createPool,
             transferToken,
-            setModifyPoolID
+            setModifyPoolID,
+            addTokenToMetamask,
+            setWithdrawPoolID
         }}>
             {children}
         </PoolContext.Provider>

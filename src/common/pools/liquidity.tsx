@@ -14,6 +14,8 @@ const Liquidity = () => {
     }
     loadData()
   }, [])
+
+  
   return (
     <>
       {uniswapPools.map((p, i) => (
